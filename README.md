@@ -8,7 +8,7 @@
 | Name | NIM | Role | Github|
 | :---: | :---: | :---: | :---: |
 | Naufal Taufiq Ridwan     | 120140044 | Programmer | [n0l3r](https://github.com/n0l3r) |
-| Andre Riatasa Wijaya     | 120140166 | Programmer | andre-riatasa     |
+| Andre Riatasa Wijaya     | 120140166 | Programmer | [PoohNoCounter](https://github.com/PoohNoCounter)    |
 | M. Herton Amarta Buana   | 120140182 | Programmer | [HrtnZx](https://github.com/HrtnZx) |
 | Vinsensius Robby Anggara | 120140192 | Programmer | [vinsensiusrobby15](https://github.com/vinsensiusrobby15) |
 | Afif Syaifullah Fattah   | 120140229 | Programmer | [AfifSaifullah](https://github.com/AfifSaifullah) |
