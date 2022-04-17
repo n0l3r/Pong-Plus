@@ -4,5 +4,5 @@ class board:
         self.width = width
     
     def render():
-        pass
+        pass 
         
