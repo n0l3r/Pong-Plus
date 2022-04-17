@@ -16,7 +16,7 @@
 
 
 ## Introduction
-Pong Plus merupakan game dua dimensi yang
+Pong Plus merupakan suatu game dua dimensi yang
 dimainkan oleh dua buah pemain. Aturan permainan
 mirip dengan game klasik pong, yang mana sebuah bola
 akan dilemparkan dari tengah papan dan setiap pemain
