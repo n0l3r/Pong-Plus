@@ -15,3 +15,43 @@ class Item(ABC):
     @abstractmethod
     def show_icon(self):
         pass
+
+class SpeedUp(Item):
+    def __init__(self, size, pos_x, pos_y, lifetime, duration):
+        super().__init__(size, pos_x, pos_y, lifetime, duration)
+
+    def effect(self):
+        pass
+
+    def show_icon(self):
+        pass
+
+class Striketrough(Item):
+    def __init__(self, size, pos_x, pos_y, lifetime, duration):
+        super().__init__(size, pos_x, pos_y, lifetime, duration)
+
+    def effect(self):
+        pass
+
+    def show_icon(self):
+        pass
+
+class Expand(Item):
+    def __init__(self, size, pos_x, pos_y, lifetime, duration):
+        super().__init__(size, pos_x, pos_y, lifetime, duration)
+
+    def effect(self):
+        pass
+
+    def show_icon(self):
+        pass
+
+class Shrink(Item):
+    def __init__(self, size, pos_x, pos_y, lifetime, duration):
+        super().__init__(size, pos_x, pos_y, lifetime, duration)
+
+    def effect(self):
+        pass
+
+    def show_icon(self):
+        pass
