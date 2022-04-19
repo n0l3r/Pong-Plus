@@ -5,8 +5,8 @@ class Paddle:
         self.lenght = length
         self.pos_y = pos_y
 
-    def move():
+    def move(self):
         pass
 
-    def render():
+    def render(self):
         pass

@@ -3,6 +3,6 @@ class Board:
         self.height = height
         self.width = width
     
-    def render():
+    def render(self):
         pass 
         

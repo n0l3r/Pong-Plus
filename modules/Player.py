@@ -3,5 +3,5 @@ class Player:
         self.score = score
         self.side = side
 
-    def update_score():
+    def update_score(self):
         pass
