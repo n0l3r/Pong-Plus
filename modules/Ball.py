@@ -7,8 +7,8 @@ class Ball():
         self.pos_x = pos_x
         self.pos_y = pos_y
     
-    def move():
+    def move(self):
         pass
 
-    def show():
+    def show(self):
         pass
