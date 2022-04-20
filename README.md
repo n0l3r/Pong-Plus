@@ -22,4 +22,5 @@ mirip dengan game klasik pong, yang mana sebuah bola
 akan dilemparkan dari tengah papan dan setiap pemain
 dapat memantulkan bola tersebut dengan paddle yang
 berada pada kiri dan kanan papan permainan.
+permainan ini juga dapat dimainkan secara solo player dan dapat juga multiplayer.
 
