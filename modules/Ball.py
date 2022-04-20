@@ -10,5 +10,5 @@ class Ball():
     def move(self):
         pass
 
-    def show(self):
+    def render(self):
         pass
