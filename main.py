@@ -7,9 +7,11 @@ pygame.init()
 # size of the window
 SIZE = (1280, 720)
 PLAY = True
+icon = pygame.image.load("assets/images/icon.png")
 
 screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption("Pong Plus")
+pygame.display.set_icon(icon)
 
 page_menu = "main_menu"
 
