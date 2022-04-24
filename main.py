@@ -8,15 +8,6 @@ pygame.init()
 SIZE = (1280, 720)
 PLAY = True
 
-def change_screen(page_menu="main_menu", window=None):
-    if page_menu == "main_menu":
-        main_menu = Menu.MainMenu()
-        main_menu.render(window)
-    elif page_menu == "about":
-        about_menu = Menu.AboutMenu()
-        about_menu.render(window)
-
-
 screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption("Pong Plus")
 
