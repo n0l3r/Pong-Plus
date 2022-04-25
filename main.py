@@ -1,6 +1,5 @@
 import pygame
-import sys
-from modules import Button, Menu
+from modules import Menu
 
 pygame.init()
 
