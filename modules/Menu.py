@@ -116,6 +116,49 @@ class Play(Menu):
         score_font = pygame.font.Font("assets/font/Montserrat-Regular.ttf", 32)
         score_text = score_font.render(str(self.max_score), True, (255, 255, 255), None)
         screen.blit(score_text, (660, 430))
-       
 
+def change_menu(menu:dict, crnt_page:str, screen):
+    # Main Menu Page
+    if crnt_page == "main_menu":
+        if menu["main_menu"].play_btn.check(pygame.mouse.get_pos()):
+            menu["play_menu"].render(screen)
+            return "play_menu"
+
+        elif menu["main_menu"].about_btn.check(pygame.mouse.get_pos()):
+            menu["about_menu"].render(screen)
+            return "about_menu"
+
+        elif menu["main_menu"].info_btn.check(pygame.mouse.get_pos()):
+            menu["info_menu"].render(screen)
+            return "info_menu"
+
+        elif menu["main_menu"].exit_btn.check(pygame.mouse.get_pos()):
+            return "<exit>"
+
+    # About Menu
+    elif crnt_page == "about_menu":
+        if menu["about_menu"].back_btn.check(pygame.mouse.get_pos()):
+            menu["main_menu"].render(screen)
+            return "main_menu"
+
+    # Info Menu
+    elif crnt_page == "info_menu":
+        if menu["info_menu"].back_btn.check(pygame.mouse.get_pos()):
+            menu["main_menu"].render(screen)
+            return "main_menu"
+            
+    # Play Menu
+    elif crnt_page == "play_menu":
+        if menu["play_menu"].back_btn.check(pygame.mouse.get_pos()):
+            menu["main_menu"].render(screen)
+            return "main_menu"
         
+        if menu["play_menu"].increase_btn.check(pygame.mouse.get_pos()):
+            menu["play_menu"].max_score += 1
+            menu["play_menu"].render(screen)
+                    
+        if menu["play_menu"].decrease_btn.check(pygame.mouse.get_pos()) and menu["play_menu"].max_score > 1:
+            menu["play_menu"].max_score -= 1
+            menu["play_menu"].render(screen)
+    # Else return default state
+    return crnt_page
