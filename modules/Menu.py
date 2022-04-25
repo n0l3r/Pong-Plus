@@ -95,6 +95,48 @@ class Info(Menu):
         self.back_btn = Button(image=back_img, pos=(505, 575))
         self.back_btn.render(screen)
 
+class Play(Menu):
+    def __init__(self):
+        super().__init__("play_menu")
+
+    def render(self, screen):
+        screen.fill(MENU_BG)
+
+        logo_pbb = pygame.image.load("assets/images/logo_pbb.png")
+        logo_pbb.set_alpha(255)
+        screen.blit(logo_pbb, (15, 15))
+
+        
+
+        easy_img = pygame.image.load("assets/button/easy_btn.png")
+        self.easy_btn = Button(image=easy_img, pos=(505, 203))
+        self.easy_btn.render(screen)
+
+        medium_img = pygame.image.load("assets/button/medium_btn.png")
+        self.medium_btn = Button(image=medium_img, pos=(505, 268))
+        self.medium_btn.render(screen)
+
+        hard_img = pygame.image.load("assets/button/hard_btn.png")
+        self.hard_btn = Button(image=hard_img, pos=(505, 333))
+        self.hard_btn.render(screen)
+
+        score_img = pygame.image.load("assets/images/score_text.png")
+        score_img.set_alpha(255)
+        screen.blit(score_img, (494, 422))
+
+        increase_img = pygame.image.load("assets/button/increase_btn.png")
+        self.increase_btn = Button(image=increase_img, pos=(734, 426))
+        self.increase_btn.render(screen)
+
+        decrease_img = pygame.image.load("assets/button/decrease_btn.png")
+        self.decrease_btn = Button(image=decrease_img, pos=(728, 450))
+        self.decrease_btn.render(screen)
+
+
+        back_img = pygame.image.load("assets/button/back_btn.png")
+        self.back_btn = Button(image=back_img, pos=(505, 575))
+        self.back_btn.render(screen)
+
 
        
 
