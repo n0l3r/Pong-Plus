@@ -3,16 +3,17 @@
 ## Table of Contents
 - [Members of the Team](#members-of-the-team)
 - [Introduction](#introduction)
+- [Installation](#installation)
 
 ## Members of the Team
 | Name | NIM | Role | Github|
 | :---: | :---: | :---: | :---: |
-| Naufal Taufiq Ridwan     | 120140044 | Programmer | [n0l3r](https://github.com/n0l3r) |
+| Naufal Taufiq Ridwan     | 120140044 | Project Manager + Programmer | [n0l3r](https://github.com/n0l3r) |
 | Andre Riatasa Wijaya     | 120140166 | Programmer | [PoohNoCounter](https://github.com/PoohNoCounter)    |
 | M. Herton Amarta Buana   | 120140182 | Programmer | [HrtnZx](https://github.com/HrtnZx) |
-| Vinsensius Robby Anggara | 120140192 | Programmer | [vinsensiusrobby15](https://github.com/vinsensiusrobby15) |
+| Vinsensius Robby Anggara | 120140192 | Designer | [vinsensiusrobby15](https://github.com/vinsensiusrobby15) |
 | Afif Syaifullah Fattah   | 120140229 | Programmer | [AfifSaifullah](https://github.com/AfifSaifullah) |
-| Yusuh Hafidz             | 120140234 | Programmer | [hfdzz](https://github.com/hfdzz) |
+| Yusuh Hafidz             | 120140234 | Designer + Programmer | [hfdzz](https://github.com/hfdzz) |
 
 
 ## Introduction
@@ -24,3 +25,20 @@ dapat memantulkan bola tersebut dengan paddle yang
 berada pada kiri dan kanan papan permainan.
 permainan ini juga dapat dimainkan secara solo player dan dapat juga multiplayer.
 
+
+## Installation
+Untuk menginstal game ini, silahkan menginstall modules yang dibutuhkan.
+
+```
+pip install -r requirements.txt
+```
+
+## Running the Game
+Untuk menjalankan game ini, silahkan menjalankan file `main.py`.
+```
+python main.py
+```
+or
+```
+python3 main.py
+```
