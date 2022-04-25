@@ -17,7 +17,7 @@ page_menu = "main_menu"
 
 main_menu = Menu.Main()
 main_menu.render(screen)
-
+play_menu = Menu.Play()
 about_menu = Menu.About()
 info_menu = Menu.Info()
 
@@ -30,6 +30,7 @@ while PLAY:
             if page_menu == "main_menu":
                 if main_menu.play_btn.check(pygame.mouse.get_pos()):
                     page_menu = "play_menu"
+                    play_menu.render(screen)
                 elif main_menu.about_btn.check(pygame.mouse.get_pos()):
                     page_menu = "about_menu"
                     about_menu.render(screen)
@@ -46,9 +47,12 @@ while PLAY:
                 if info_menu.back_btn.check(pygame.mouse.get_pos()):
                     page_menu = "main_menu"
                     main_menu.render(screen)
-               
+            elif page_menu == "play_menu":
+                if play_menu.back_btn.check(pygame.mouse.get_pos()):
+                    page_menu = "main_menu"
+                    main_menu.render(screen)
+
     pygame.display.update()
 
 pygame.quit()
-
 
