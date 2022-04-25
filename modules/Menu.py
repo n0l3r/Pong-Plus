@@ -147,9 +147,18 @@ def change_menu(menu:dict, crnt_page:str, screen):
             menu["main_menu"].render(screen)
             return "main_menu"
             
+    # Play Menu
     elif crnt_page == "play_menu":
         if menu["play_menu"].back_btn.check(pygame.mouse.get_pos()):
             menu["main_menu"].render(screen)
             return "main_menu"
+        
+        if menu["play_menu"].increase_btn.check(pygame.mouse.get_pos()):
+            menu["play_menu"].max_score += 1
+            menu["play_menu"].render(screen)
+                    
+        if menu["play_menu"].decrease_btn.check(pygame.mouse.get_pos()) and menu["play_menu"].max_score > 1:
+            menu["play_menu"].max_score -= 1
+            menu["play_menu"].render(screen)
     # Else return default state
     return crnt_page
