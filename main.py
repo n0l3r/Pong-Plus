@@ -39,13 +39,13 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # Menu button clicks
                 page_menu = Menu.change_menu(menu_dict, page_menu, screen)
-                if page_menu == "<exit>": PLAY=False
+                if page_menu == "<exit>": 
+                    PLAY = False
                
         pygame.display.update()
 
+    pygame.quit()
 
 if __name__ == "__main__":
     main()
-
-pygame.quit()
 
