@@ -124,3 +124,5 @@ def change_menu(menu:dict, crnt_page:str, screen):
         if menu["info_menu"].back_btn.check(pygame.mouse.get_pos()):
             menu["main_menu"].render(screen)
             return "main_menu"
+    # Else return default state
+    return crnt_page
