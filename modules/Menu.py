@@ -50,7 +50,8 @@ class Main(Menu):
 
 
 class About(Menu):
-    def __init__(self):
+    def __init__(self, text_img_path):
+        self.text_img_path = text_img_path
         super().__init__("about_menu")
 
     def render(self, screen):
@@ -64,32 +65,9 @@ class About(Menu):
         logo_img.set_alpha(255)
         screen.blit(logo_img, (494, 173))
         
-        about_text = pygame.image.load("assets/images/about_text.png")
+        about_text = pygame.image.load(self.text_img_path)
         about_text.set_alpha(255)
         screen.blit(about_text, (215, 125))
-
-        back_img = pygame.image.load("assets/button/back_btn.png")
-        self.back_btn = Button(image=back_img, pos=(505, 575))
-        self.back_btn.render(screen)
-
-class Info(Menu):
-    def __init__(self):
-        super().__init__("info_menu")
-
-    def render(self, screen):
-        screen.fill(MENU_BG)
-
-        logo_pbb = pygame.image.load("assets/images/logo_pbb.png")
-        logo_pbb.set_alpha(255)
-        screen.blit(logo_pbb, (15, 15))
-
-        logo_img = pygame.image.load("assets/images/Pong_Logo.png")
-        logo_img.set_alpha(255)
-        screen.blit(logo_img, (494, 173))
-
-        info_text = pygame.image.load("assets/images/info_text.png")
-        info_text.set_alpha(255)
-        screen.blit(info_text, (215, 125))
 
         back_img = pygame.image.load("assets/button/back_btn.png")
         self.back_btn = Button(image=back_img, pos=(505, 575))
@@ -104,9 +82,7 @@ class Play(Menu):
 
         logo_pbb = pygame.image.load("assets/images/logo_pbb.png")
         logo_pbb.set_alpha(255)
-        screen.blit(logo_pbb, (15, 15))
-
-        
+        screen.blit(logo_pbb, (15, 15))   
 
         easy_img = pygame.image.load("assets/button/easy_btn.png")
         self.easy_btn = Button(image=easy_img, pos=(505, 203))
