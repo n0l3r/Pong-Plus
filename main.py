@@ -65,7 +65,7 @@ def main():
                         play_menu.max_score += 1
                         play_menu.render(screen)
                     
-                    if play_menu.decrease_btn.check(pygame.mouse.get_pos()) and play_menu.max_score > 0:
+                    if play_menu.decrease_btn.check(pygame.mouse.get_pos()) and play_menu.max_score > 1:
                         play_menu.max_score -= 1
                         play_menu.render(screen)
 
