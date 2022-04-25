@@ -96,6 +96,31 @@ class Info(Menu):
         self.back_btn.render(screen)
 
 
-       
+def change_menu(menu:dict, crnt_page:str, screen):
+    # Main Menu Page
+    if crnt_page == "main_menu":
+        if menu["main_menu"].play_btn.check(pygame.mouse.get_pos()):
+            return "play_menu"
 
-        
+        elif menu["main_menu"].about_btn.check(pygame.mouse.get_pos()):
+            menu["about_menu"].render(screen)
+            return "about_menu"
+
+        elif menu["main_menu"].info_btn.check(pygame.mouse.get_pos()):
+            menu["info_menu"].render(screen)
+            return "info_menu"
+
+        elif menu["main_menu"].exit_btn.check(pygame.mouse.get_pos()):
+            return "<exit>"
+
+    # About Menu
+    elif crnt_page == "about_menu":
+        if menu["about_menu"].back_btn.check(pygame.mouse.get_pos()):
+            menu["main_menu"].render(screen)
+            return "main_menu"
+
+    # Info Menu
+    elif crnt_page == "info_menu":
+        if menu["info_menu"].back_btn.check(pygame.mouse.get_pos()):
+            menu["main_menu"].render(screen)
+            return "main_menu"
