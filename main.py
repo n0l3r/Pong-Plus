@@ -39,6 +39,8 @@ def main():
                 page_menu = Menu.change_menu(menu_dict, page_menu, screen)
                 if page_menu == "<exit>": 
                     PLAY = False
+            
+            menu_dict[page_menu].render(screen)
                
         pygame.display.update()
 
