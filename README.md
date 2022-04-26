@@ -26,15 +26,15 @@ berada pada kiri dan kanan papan permainan.
 permainan ini juga dapat dimainkan secara solo player dan dapat juga multiplayer.
 
 
-## Installation
-Untuk menginstal game ini, silahkan menginstall modules yang dibutuhkan.
-
+## How to Run
+Install dependencies:
 ```
+git clone https://github.com/n0l3r/Pong-Plus.git
+cd Pong-Plus
+
 pip install -r requirements.txt
 ```
-
-## Running the Game
-Untuk menjalankan game ini, silahkan menjalankan file `main.py`.
+Running the Game
 ```
 python main.py
 ```
