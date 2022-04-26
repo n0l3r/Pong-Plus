@@ -10,7 +10,6 @@ class Button:
         screen.blit(self.image, (self.pos_x, self.pos_y))
     
     def check(self, mouse_pos):
-        if mouse_pos[0] in range(self.pos_x, self.pos_x + self.image.get_width()) and mouse_pos[1] in range(self.pos_y, self.pos_y + self.image.get_height()):
-            return True
-        return False
+        rect = pygame.Rect(self.pos_x, self.pos_y, self.image.get_width(), self.image.get_height())
+        return rect.collidepoint(mouse_pos)
 
