@@ -10,7 +10,7 @@ class Button:
         
     def render(self, screen):
         if self.check(pygame.mouse.get_pos()):
-            self.image.set_alpha(100)
+            self.image.set_alpha(200)
         else:
             self.image.set_alpha(255)
         screen.blit(self.image, (self.pos_x, self.pos_y))
