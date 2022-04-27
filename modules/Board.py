@@ -1,4 +1,4 @@
-lass Scores:
+class Scores:
     def _init_(self, left:bool, board:Board, score_val = 0) -> None:
         # Posisi scorebox kiri atau kanan
         self.is_left = left
