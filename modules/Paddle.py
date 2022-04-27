@@ -8,8 +8,8 @@ class Paddle:
         self.speed = speed # Kecepatan gerak
 
 
-    def move(self):
-        pass
+    def move(self, down:bool):
+        self.pos_y += (self.speed if down else -self.speed)
 
 
     def render(self):
