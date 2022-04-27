@@ -1,50 +1,67 @@
-import pygame
-import sys # debugging
+lass Scores:
+    def _init_(self, left:bool, board:Board, score_val = 0) -> None:
+        # Posisi scorebox kiri atau kanan
+        self.is_left = left
 
-pygame.init()
+        # Board induknya
+        self.cor_board = board
+        self.width = 80
+        self.height = 55
 
-# Rasterized neon size = 15px
-BOARD_NEON = 15
+        # Cari posisi x dan y
+        self.__set_pos()
 
-class Board:
-    # Board aspect ratio = 16 : 9
-    # Board : Screen_area ratio = 7 : 8
-    default_width = 1120
-    default_height = 630
-    def _init_(self):
+        self.image = pygame.image.load("assets/game_board/Score box.png")
+        # Scale image sesuai width x height
+        self.image = pygame.transform.scale(self.image, [self.width, self.height])
 
-        #    -> img_width / img_heigth adalah size dari GAMBAR board (tanpa size neon).
-        #    -> width / height adalah area dalam board (inner board size) yang nanti
-        #       jadi acuan WALL COLLISION. (disatukan dalam list size[width, height])
+        # Value dari isi scorebox
+        self.__value = self.set_value( score_val )
 
-        # Size image board
-        self.img_width = 1120
-        self.img_height = 630
+    # Nentuin isi dari value
+    def set_value(self, amount:int):
+        return amount
 
-        # Posisi board + jarak shadow (neon)
-        self.x = 80 - BOARD_NEON
-        self.y = 67 - BOARD_NEON
-        self.image = pygame.image.load("assets/game_board/Board-Stars.png")
+    # Ngambil nilai value hasilnya string
+    def get_value(self) -> str:
+        if self.__value > 999:
+            return "---"
+        return str(self.__value)
 
-        # Scale gambar jadi 1120+neon x 630+neon (1150 x 660)
-        self.image = pygame.transform.scale(self.image, [self.img_width + 2*BOARD_NEON, self.img_height + 2*BOARD_NEON])
-        
-        # Size board di dalam untuk check collision (mantul)
-        self.size = self.width,self.height = [1098, 608]
-        
-        # Scorebox boardnya
-        self.score_boxes = [Scores(True, self), Scores(False, self)]
-        
-        # Timer diatas board
-        self.timer = Timer(self)
-    
     def render(self, screen):
-        # Board (self)
-        screen.blit(self.image, [self.x,self.y]) 
+        # Render scorebox
+        screen.blit(self.image, [self.x, self.y])
         
-        # Score boxes
-        self.score_boxes[0].render(screen)
-        self.score_boxes[1].render(screen)
+        # Render score
+        score_font = pygame.font.Font("assets/font/Montserrat-Regular.ttf", 32)
+        score_text = score_font.render(self.get_value(), True, (255, 255, 255), None)
         
-        # Timer
-        self.timer.render(screen)
+        # Render score ke tengah scorebox
+        screen.blit(score_text, (
+            self.x + (self.width - score_text.get_width())/2,
+            self.y + (self.height - score_text.get_height())/2
+            ))
+
+    def __set_pos(self):
+        self.y = 5
+        # Nilai x dari tengah
+        diff_x = 100
+        if self.is_left:
+            # Jika di kiri, nilai tengah dikurang jarak ke mid dan width scoreboxnya
+            self.x = (1280/2) - diff_x - self.width
+        else:
+            # Jika di kiri, nilai tengah ditambah width scoreboxnya
+            self.x = (1280/2) + diff_x
+
+class Timer:
+    def _init_(self, board:Board) -> None:
+        # Isi dari text timer
+        self.timer_time = "01:14"
+        self.cor_board = board
+
+    def render(self, screen):
+        
+        timer_font = pygame.font.Font("assets/font/Montserrat-Regular.ttf", 36)
+        timer_text = timer_font.render(self.timer_time, True, (255, 255, 255), None)
+        # Render ke tengah window
+        screen.blit(timer_text, [ 640 - (timer_text.get_width()/2), 10 ] )
