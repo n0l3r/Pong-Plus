@@ -63,10 +63,10 @@ class Scores:
         self.__set_pos(win_width,win_height)
         self.image = pygame.image.load("assets/game_board/Score Box.png")
         self.image = pygame.transform.scale(self.image, [self.width, self.height])
-        self.__value = self.set_value( score_val )
+        self.__value = score_val
 
     def set_value(self, amount:int):
-        return amount
+        self.__value = amount
 
     def get_value(self) -> str:
         if self.__value > 999:

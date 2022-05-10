@@ -2,6 +2,8 @@ import pygame
 from modules import Menu
 from modules import Board
 from modules.Paddle import Paddle
+from modules.Ball import Ball
+from modules.Player import Player
 
 pygame.init()
 SIZE = (1280, 720)
@@ -28,7 +30,7 @@ def main_menu():
     }
 
     # kecepatan bola (bisa dirubah)
-    game_diff = {"play_easy":1, "play_medium":2, "play_hard":3}
+    game_diff = {"play_easy":5, "play_medium":10, "play_hard":15}
 
     while PLAY:
         for event in pygame.event.get():
@@ -61,6 +63,13 @@ def game_play(diff, max_score):
     gameScreen = pygame.Surface([1091,601], pygame.SRCALPHA, 32)
     gameScreen = gameScreen.convert_alpha()
     paddles = [paddle_left, paddle_right] = [Paddle(0, board, 7), Paddle(1, board, 7)]
+    
+    ball_img = pygame.image.load("assets/game_board/Ball-Reacr.png")
+    ball = Ball(ball_img, diff, diff, 545, 300)
+
+    player_1 = Player(0)
+    player_2 = Player(1)
+
 
     while True:
         for event in pygame.event.get():
@@ -92,13 +101,43 @@ def game_play(diff, max_score):
 
         screen.fill(pygame.Color(0,0,0,0))
         gameScreen.fill(pygame.Color(0,0,0,0))
-        # board.render(screen)
+        board.render(screen)
         board.score_render(screen)
 
         for i in paddles:
             i.render(gameScreen)
 
-        # pygame.draw.rect(gameScreen, (0,255,0), [0, 0, board.width, board.height], 1) # for debugging
+        pygame.draw.rect(gameScreen, (0,255,0), [0, 0, board.width, board.height], 1) # for debugging
+
+        # gerakan bola
+        ball.move()
+        ball.render(gameScreen)
+
+        if ball.rect.left <= 0:
+            ball.pos_x = 545
+            ball.pos_y = 300
+
+            player_2.update_score()
+            board.score_boxes[1].set_value(player_2.score)
+            board.score_render(screen)
+        
+        elif ball.rect.right >= 1096:
+            ball.pos_x = 545
+            ball.pos_y = 300
+
+            player_1.update_score()
+            board.score_boxes[0].set_value(player_1.score)
+            board.score_render(screen)
+
+        if ball.rect.top <= 0 or ball.rect.bottom >= 601:
+            ball.bounce(0)
+
+        if ball.rect.colliderect(paddle_left.rect):
+            ball.bounce(1, paddle_left)
+
+        elif ball.rect.colliderect(paddle_right.rect):
+            ball.bounce(1, paddle_right)
+
 
         screen.blit(gameScreen, [board.x + 30, board.y + 30])
 
