@@ -1,6 +1,7 @@
 import pygame
 from modules import Menu
 from modules import Board
+from modules.Paddle import Paddle
 
 pygame.init()
 SIZE = (1280, 720)
@@ -45,7 +46,6 @@ def main_menu():
                 if page_menu in game_diff:
                     game_play(game_diff[page_menu], menu_dict["play_menu"].max_score)
 
-            
             menu_dict[page_menu].render(screen)
                
         pygame.display.update()
@@ -54,17 +54,55 @@ def main_menu():
 
 def game_play(diff, max_score):
 
+    screen.fill((0,0,0))
     board = Board.Board()
     board.render(screen)
+    # Test speed 7
+    gameScreen = pygame.Surface([1091,601], pygame.SRCALPHA, 32)
+    gameScreen = gameScreen.convert_alpha()
+    paddles = [paddle_left, paddle_right] = [Paddle(0, board, 7), Paddle(1, board, 7)]
 
     while True:
-        board.score_render(screen)
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        pygame.display.update()
+            # Keydown
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    paddle_left.speed -= paddle_left.base_speed
+                elif event.key == pygame.K_s:
+                    paddle_left.speed += paddle_left.base_speed
+
+                if event.key == pygame.K_UP:
+                    paddle_right.speed -= paddle_right.base_speed
+                elif event.key == pygame.K_DOWN:
+                    paddle_right.speed += paddle_right.base_speed
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_w:
+                    paddle_left.speed += paddle_left.base_speed
+                elif event.key == pygame.K_s:
+                    paddle_left.speed -= paddle_left.base_speed
+                    
+                if event.key == pygame.K_UP:
+                    paddle_right.speed += paddle_right.base_speed
+                elif event.key == pygame.K_DOWN:
+                    paddle_right.speed -= paddle_right.base_speed
+
+        screen.fill(pygame.Color(0,0,0,0))
+        gameScreen.fill(pygame.Color(0,0,0,0))
+        # board.render(screen)
+        board.score_render(screen)
+
+        for i in paddles:
+            i.render(gameScreen)
+
+        # pygame.draw.rect(gameScreen, (0,255,0), [0, 0, board.width, board.height], 1) # for debugging
+
+        screen.blit(gameScreen, [board.x + 30, board.y + 30])
+
+        pygame.display.flip()
 
 
 if __name__ == "__main__":

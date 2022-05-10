@@ -38,7 +38,7 @@ class Board:
         self.y = 67 - BOARD_NEON
         self.image = pygame.image.load("assets/game_board/Board-Stars.png")
         self.image = pygame.transform.scale(self.image, [self.img_width + 2*BOARD_NEON, self.img_height + 2*BOARD_NEON])
-        self.size = self.width,self.height = [ (self.img_width*549)/560, (self.img_height*304)/315]
+        self.size = self.width,self.height = [ (self.img_width*549)/560 - 8, (self.img_height*304)/315 - 8]
         self.score_boxes = [Scores(True, self), Scores(False, self)]
         self.timer = Timer(self)
     
