@@ -45,11 +45,14 @@ class Board:
     def render(self, screen):
         # Board (self)
         screen.blit(self.image, [self.x,self.y]) 
+        
+        # Timer
+        self.timer.render(screen)
+        
+    def score_render(self, screen):
         # Score boxes
         self.score_boxes[0].render(screen)
         self.score_boxes[1].render(screen)
-        # Timer
-        self.timer.render(screen)
 
 class Scores:
     def __init__(self, left:bool, board:Board, score_val = 0, win_width = 1280, win_height = 720) -> None:

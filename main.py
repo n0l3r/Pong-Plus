@@ -55,9 +55,10 @@ def main_menu():
 def game_play(diff):
 
     board = Board.Board()
+    board.render(screen)
 
     while True:
-        board.render(screen)
+        board.score_render(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
