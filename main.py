@@ -1,19 +1,15 @@
 import pygame
 from modules import Menu
 
+pygame.init()
+SIZE = (1280, 720)
+icon = pygame.image.load("assets/images/icon.png")
+screen = pygame.display.set_mode(SIZE)
+pygame.display.set_caption("Pong Plus")
+pygame.display.set_icon(icon)
 
 def main_menu():
-    pygame.init()
-
-    # size of the window
-    SIZE = (1280, 720)
     PLAY = True
-    icon = pygame.image.load("assets/images/icon.png")
-
-    screen = pygame.display.set_mode(SIZE)
-    pygame.display.set_caption("Pong Plus")
-    pygame.display.set_icon(icon)
-
     page_menu = "main_menu"
 
     main_menu = Menu.Main()
