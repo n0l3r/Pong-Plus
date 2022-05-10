@@ -22,7 +22,7 @@ class Ball():
             self.vec_y *= -1
         
         else: # Arah pantulan bola bervariasi berdasarkan jarak bola dari titik tengah paddle
-            focal_point = 2*(paddle.lenght if paddle.side else -paddle.lenght)
+            focal_point = 2*(paddle.length if paddle.side else -paddle.length)
             height_diff = (self.pos_y + self.size)/2 - (paddle.pos_y + paddle.length)/2
             angle = math.atan(focal_point/height_diff)
 
