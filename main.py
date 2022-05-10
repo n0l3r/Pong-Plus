@@ -65,7 +65,7 @@ def game_play(diff, max_score):
     paddles = [paddle_left, paddle_right] = [Paddle(0, board, 7), Paddle(1, board, 7)]
     
     ball_img = pygame.image.load("assets/game_board/Ball-Reacr.png")
-    ball = Ball(ball_img, diff, diff, 545, 300)
+    ball = Ball(ball_img, diff, 0, 545, 300)
 
     player_1 = Player(0)
     player_2 = Player(1)
@@ -116,6 +116,8 @@ def game_play(diff, max_score):
         if ball.rect.left <= 0:
             ball.pos_x = 545
             ball.pos_y = 300
+            ball.vec_x = -diff
+            ball.vec_y = 0
 
             player_2.update_score()
             board.score_boxes[1].set_value(player_2.score)
@@ -124,6 +126,8 @@ def game_play(diff, max_score):
         elif ball.rect.right >= 1096:
             ball.pos_x = 545
             ball.pos_y = 300
+            ball.vec_x = diff
+            ball.vec_y = 0
 
             player_1.update_score()
             board.score_boxes[0].set_value(player_1.score)

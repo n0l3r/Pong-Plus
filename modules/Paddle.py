@@ -7,7 +7,7 @@ class Paddle:
         self.image = pygame.image.load("assets/game_board/Paddle-Template.png")
         self.image = pygame.transform.scale(self.image,[50, 200])
         self.side = side # 0 = kiri, 1 = kanan
-        self.width = 1
+        self.width = 20
         self.height = 170
         if side:
             self.x = 30
