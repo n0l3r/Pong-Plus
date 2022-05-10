@@ -2,7 +2,7 @@ import pygame
 from modules import Menu
 
 
-def main():
+def main_menu():
     pygame.init()
 
     # size of the window
@@ -47,6 +47,9 @@ def main():
 
     pygame.quit()
 
+def game_play():
+    pass
+
 if __name__ == "__main__":
-    main()
+    main_menu()
 
