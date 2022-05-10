@@ -43,7 +43,7 @@ def main_menu():
                     break
 
                 if page_menu in game_diff:
-                    game_play(game_diff[page_menu])
+                    game_play(game_diff[page_menu], menu_dict["play_menu"].max_score)
 
             
             menu_dict[page_menu].render(screen)
@@ -52,7 +52,7 @@ def main_menu():
 
     pygame.quit()
 
-def game_play(diff):
+def game_play(diff, max_score):
 
     board = Board.Board()
     board.render(screen)
