@@ -58,7 +58,7 @@ class Scores:
         self.width = (board.width*40) / 549
         self.height = (board.height*55)/608
         self.__set_pos(win_width,win_height)
-        self.image = pygame.image.load("assets/game_board/Score box.png")
+        self.image = pygame.image.load("assets/game_board/Score Box.png")
         self.image = pygame.transform.scale(self.image, [self.width, self.height])
         self.__value = self.set_value( score_val )
 
