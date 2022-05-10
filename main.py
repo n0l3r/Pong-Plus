@@ -1,5 +1,6 @@
 import pygame
 from modules import Menu
+from modules import Board
 
 pygame.init()
 SIZE = (1280, 720)
@@ -25,6 +26,9 @@ def main_menu():
         "info_menu":info_menu
     }
 
+    # kecepatan bola (bisa dirubah)
+    game_diff = {"play_easy":1, "play_medium":2, "play_hard":3}
+
     while PLAY:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -33,9 +37,14 @@ def main_menu():
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # Menu button clicks
                 page_menu = Menu.change_menu(menu_dict, page_menu, screen)
+
                 if page_menu == "<exit>": 
                     PLAY = False
                     break
+
+                if page_menu in game_diff:
+                    game_play(game_diff[page_menu])
+
             
             menu_dict[page_menu].render(screen)
                
@@ -43,8 +52,19 @@ def main_menu():
 
     pygame.quit()
 
-def game_play():
-    pass
+def game_play(diff):
+
+    board = Board.Board()
+
+    while True:
+        board.render(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+        pygame.display.update()
+
 
 if __name__ == "__main__":
     main_menu()

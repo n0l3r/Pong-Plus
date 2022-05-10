@@ -160,5 +160,16 @@ def change_menu(menu:dict, crnt_page:str, screen):
         if menu["play_menu"].decrease_btn.check(pygame.mouse.get_pos()) and menu["play_menu"].max_score > 1:
             menu["play_menu"].max_score -= 1
             menu["play_menu"].render(screen)
+
+        if menu["play_menu"].easy_btn.check(pygame.mouse.get_pos()):
+            return "play_easy"
+
+        if menu["play_menu"].medium_btn.check(pygame.mouse.get_pos()):
+            return "play_medium"
+
+        if menu["play_menu"].hard_btn.check(pygame.mouse.get_pos()):
+            return "play_hard"
+            
+
     # Else return default state
     return crnt_page
