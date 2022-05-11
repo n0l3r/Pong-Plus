@@ -9,7 +9,7 @@ class Paddle:
         self.side = side # 0 = kiri, 1 = kanan
         self.width = 20
         self.height = 170
-        if side:
+        if side == 0:
             self.x = 30
         else:
             self.x = 1041
