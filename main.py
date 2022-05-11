@@ -63,13 +63,13 @@ def game_play(diff, max_score):
     # Test speed 7
     gameScreen = pygame.Surface([1091,601], pygame.SRCALPHA, 32)
     gameScreen = gameScreen.convert_alpha()
-    paddles = [paddle_left, paddle_right] = [Paddle(0, board, 7), Paddle(1, board, 7)]
+    paddles = [paddle_left, paddle_right] = [Paddle(1, board, 7), Paddle(0, board, 7)]
     
     ball_img = pygame.image.load("assets/game_board/Ball-Reacr.png")
     ball = Ball(ball_img, diff, 0, 545, 300)
 
-    player_1 = Player(0)
-    player_2 = Player(1)
+    player_1 = Player(1)
+    player_2 = Player(0)
 
 
     while True:
