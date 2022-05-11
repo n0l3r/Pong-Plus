@@ -4,21 +4,21 @@ from math import atan, sin, cos, sqrt
 
 
 class Ball():
-    def __init__(self, image:pygame.Surface, vec_x, vec_y, pos_x, pos_y) -> None:
+    def __init__(self, image:pygame.Surface, vec_x, vec_y, x, y) -> None:
         self.image = image
         self.size = 50
         self.vec_x = vec_x
         self.vec_y = vec_y
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.rect = pygame.rect.Rect(self.pos_x, self.pos_y, self.size, self.size)
+        self.x = x
+        self.y = y
+        self.rect = pygame.rect.Rect(self.x, self.y, self.size, self.size)
         self.image = pygame.transform.scale(image, [self.size + 15, self.size + 15])
 
     def move(self):
-        self.pos_x += self.vec_x
-        self.pos_y += self.vec_y
-        self.rect.x = self.pos_x
-        self.rect.y = self.pos_y
+        self.x += self.vec_x
+        self.y += self.vec_y
+        self.rect.x = self.x
+        self.rect.y = self.y
 
 
     def bounce(self, with_paddle:bool, paddle:Paddle = None):
@@ -55,5 +55,5 @@ class Ball():
         
 
     def render(self, screen):
-        screen.blit(self.image, (self.pos_x - 15, self.pos_y - 15))
+        screen.blit(self.image, (self.x - 15, self.y - 15))
         # pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
