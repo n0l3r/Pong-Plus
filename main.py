@@ -115,8 +115,8 @@ def game_play(diff, max_score):
         ball.render(gameScreen)
 
         if ball.rect.left <= 0:
-            ball.pos_x = 545
-            ball.pos_y = 300
+            ball.x = 545
+            ball.y = 300
             ball.vec_x = -diff
             ball.vec_y = 0
 
@@ -125,8 +125,8 @@ def game_play(diff, max_score):
             board.score_render(screen)
         
         elif ball.rect.right >= 1096:
-            ball.pos_x = 545
-            ball.pos_y = 300
+            ball.x = 545
+            ball.y = 300
             ball.vec_x = diff
             ball.vec_y = 0
 
