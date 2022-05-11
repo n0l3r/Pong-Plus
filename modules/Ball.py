@@ -9,10 +9,10 @@ class Ball():
         self.size = 50
         self.vec_x = vec_x
         self.vec_y = vec_y
-        self.x = x
-        self.y = y
+        self.x = x - self.size/2
+        self.y = y - self.size/2
         self.rect = pygame.rect.Rect(self.x, self.y, self.size, self.size)
-        self.image = pygame.transform.scale(image, [self.size + 15, self.size + 15])
+        self.image = pygame.transform.scale(image, [self.size + 28, self.size + 28])
 
     def move(self):
         self.x += self.vec_x
@@ -56,4 +56,4 @@ class Ball():
 
     def render(self, screen):
         screen.blit(self.image, (self.x - 15, self.y - 15))
-        # pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
+        pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
