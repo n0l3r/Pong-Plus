@@ -59,6 +59,7 @@ def game_play(diff, max_score):
     screen.fill((0,0,0))
     board = Board.Board()
     board.render(screen)
+    pygame.display.flip()
     # Test speed 7
     gameScreen = pygame.Surface([1091,601], pygame.SRCALPHA, 32)
     gameScreen = gameScreen.convert_alpha()
@@ -145,7 +146,7 @@ def game_play(diff, max_score):
 
         screen.blit(gameScreen, [board.x + 30, board.y + 30])
 
-        pygame.display.flip()
+        pygame.display.update([board.x, 0, board.width + 55, SIZE[1]])
 
 
 if __name__ == "__main__":
