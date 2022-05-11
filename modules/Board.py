@@ -21,6 +21,7 @@ import pygame
 # Rasterized neon size = 15px
 BOARD_NEON = 15
 
+# Board
 class Board:
     # Board aspect ratio = 16 : 9
     # Board : Screen_area ratio = 7 : 8
@@ -38,6 +39,8 @@ class Board:
         self.y = 67 - BOARD_NEON
         self.image = pygame.image.load("assets/game_board/Board-Stars.png")
         self.image = pygame.transform.scale(self.image, [self.img_width + 2*BOARD_NEON, self.img_height + 2*BOARD_NEON])
+        
+        # Size board : 1091 x 601
         self.size = self.width,self.height = [ (self.img_width*549)/560 - 8, (self.img_height*304)/315 - 8]
         self.score_boxes = [Scores(True, self), Scores(False, self)]
         self.timer = Timer(self)
@@ -54,6 +57,7 @@ class Board:
         self.score_boxes[0].render(screen)
         self.score_boxes[1].render(screen)
 
+# Score pada board
 class Scores:
     def __init__(self, left:bool, board:Board, score_val = 0, win_width = 1280, win_height = 720) -> None:
         self.is_left = left
@@ -90,6 +94,7 @@ class Scores:
         else:
             self.x = (win_width/2) + temp_x
 
+# Timer (unfinished)
 class Timer:
     def __init__(self, board:Board) -> None:
         self.start_time = 0.0
