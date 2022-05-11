@@ -28,7 +28,7 @@ class Ball():
         else: # Arah pantulan bola bervariasi berdasarkan jarak bola dari titik tengah paddle
             speed = sqrt(self.vec_x**2 + self.vec_y**2)
 
-            focal_point = 2*(paddle.height if paddle.side else -paddle.height)
+            focal_point = 2*(paddle.height if paddle.side == 0 else -paddle.height)
             height_diff = self.rect.centery - paddle.rect.centery
 
             if height_diff == 0:
