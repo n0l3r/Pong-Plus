@@ -56,4 +56,4 @@ class Ball():
 
     def render(self, screen):
         screen.blit(self.image, (self.x - 15, self.y - 15))
-        pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
+        # pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging

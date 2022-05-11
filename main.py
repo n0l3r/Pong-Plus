@@ -108,7 +108,7 @@ def game_play(diff, max_score):
         for i in paddles:
             i.render(gameScreen)
 
-        pygame.draw.rect(gameScreen, (0,255,0), [0, 0, board.width, board.height], 1) # for debugging
+        # pygame.draw.rect(gameScreen, (0,255,0), [0, 0, board.width, board.height], 1) # for debugging
 
         # gerakan bola
         ball.move()
