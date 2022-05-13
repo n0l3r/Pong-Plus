@@ -13,6 +13,7 @@ class Paddle:
 
         self.x = (1041 if side else 30)
         self.y = 240 - PADDLE_NEON
+        self.base_speed = 5
         self.speed = 0 # Kecepatan paddle
 
         self.board = board
@@ -21,11 +22,11 @@ class Paddle:
 
     
     def go_up(self):
-        self.speed = -5
+        self.speed = -self.base_speed
 
 
     def go_down(self):
-        self.speed = 5
+        self.speed = self.base_speed
 
 
     def stop(self):
@@ -45,6 +46,5 @@ class Paddle:
 
     # Render function
     def render(self, screen:pygame.surface.Surface):
-        self.move()
         # pygame.draw.rect(screen, (255,0,0), self.rect) # for debugging
         screen.blit(self.image, [self.x -15, self.y -15])
