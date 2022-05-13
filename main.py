@@ -98,29 +98,29 @@ def game_play(diff, max_score):
             if event.type == pygame.KEYDOWN:
                 # Kontrol paddle kiri
                 if event.key == pygame.K_w:
-                    paddle_left.speed -= paddle_left.base_speed
+                    paddle_left.go_up()
                 elif event.key == pygame.K_s:
-                    paddle_left.speed += paddle_left.base_speed
+                    paddle_left.go_down()
 
                 # Kontrol paddle kanan
                 if event.key == pygame.K_UP:
-                    paddle_right.speed -= paddle_right.base_speed
+                    paddle_right.go_up()
                 elif event.key == pygame.K_DOWN:
-                    paddle_right.speed += paddle_right.base_speed
+                    paddle_right.go_down()
 
             # Check keyup
             if event.type == pygame.KEYUP:
                 # Kontrol paddle kiri
                 if event.key == pygame.K_w:
-                    paddle_left.speed += paddle_left.base_speed
+                    paddle_left.stop()
                 elif event.key == pygame.K_s:
-                    paddle_left.speed -= paddle_left.base_speed
+                    paddle_left.stop()
                     
                 # Kontrol paddle kiri
                 if event.key == pygame.K_UP:
-                    paddle_right.speed += paddle_right.base_speed
+                    paddle_right.stop()
                 elif event.key == pygame.K_DOWN:
-                    paddle_right.speed -= paddle_right.base_speed
+                    paddle_right.stop()
 
         # Rendering
         screen.fill(pygame.Color(0,0,0,0))
@@ -129,7 +129,8 @@ def game_play(diff, max_score):
         board.score_render(screen)
 
         for i in paddles:
-            i.render(gameScreen)
+            i.move()
+            i.render(gameScreen) 
 
         # pygame.draw.rect(gameScreen, (0,255,0), [0, 0, board.width, board.height], 1) # for debugging
 

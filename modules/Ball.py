@@ -11,8 +11,11 @@ class Ball():
         self.vec_y = vec_y
         self.x = x - self.size/2
         self.y = y - self.size/2
+        self.velocity = sqrt(vec_x**2 + vec_y**2)
+
         self.rect = pygame.rect.Rect(self.x, self.y, self.size, self.size)
         self.image = pygame.transform.scale(image, [self.size + 28, self.size + 28])
+
 
     def move(self):
         self.x += self.vec_x
@@ -26,13 +29,12 @@ class Ball():
             self.vec_y *= -1
         
         else: # Arah pantulan bola bervariasi berdasarkan jarak bola dari titik tengah paddle
-            speed = sqrt(self.vec_x**2 + self.vec_y**2)
-
             focal_point = 2*(paddle.height if paddle.side == 0 else -paddle.height)
             height_diff = self.rect.centery - paddle.rect.centery
 
             if height_diff == 0:
                 self.vec_x *= -1
+                self.move()
                 return
 
             angle = atan(focal_point/height_diff) # Sudut bidang pantul
@@ -40,18 +42,23 @@ class Ball():
             self.vec_x = self.vec_x*cos(2*angle) + self.vec_y*sin(2*angle)
             self.vec_y = self.vec_x*sin(2*angle) - self.vec_y*cos(2*angle)
 
-            v_angle = self.vec_y/self.vec_x # nilai tan vektor akhir bola
+            # Sedikit perbaikan sementara untuk bug kecepatan bola yang entah kenapa melambat ketika memantul
+            vel_change = self.velocity/sqrt(self.vec_x**2 + self.vec_y**2)
+            self.vec_x *= vel_change
+            self.vec_y *= vel_change
 
-            # Jika v_angle lebih besar dari 1.7 (tan(60 derajat)) maka sudut vektor diubah menjadi 60
+            v_tan = self.vec_y/self.vec_x # nilai tan vektor akhir bola
+
+            # Jika v_tan lebih besar dari 1.7 (tan(60 derajat)) maka sudut vektor diubah menjadi 60
             # untuk mencegah sudut bola menjadi vertikal
-            if v_angle > 1.7 or v_angle < -1.7:
-                v_angle = 1.7
-                new_angle = atan(v_angle)
+            if v_tan > 1.7 or v_tan < -1.7:
+                v_tan = 1.7
+                new_angle = atan(v_tan)
 
-                self.vec_x = (-1 if paddle.side == 1 else 1)*speed*cos(new_angle)
-                self.vec_y = (-1 if self.vec_y < 0 else 1)*speed*sin(new_angle)
+                self.vec_x = (-1 if paddle.side else 1)*self.velocity*cos(new_angle)
+                self.vec_y = (-1 if self.vec_y < 0 else 1)*self.velocity*sin(new_angle)
 
-            self.move()
+        self.move()
         
 
     def render(self, screen):

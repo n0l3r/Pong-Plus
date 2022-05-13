@@ -10,30 +10,38 @@ class Paddle:
         self.side = side # 0 = kiri, 1 = kanan
         self.width = 20
         self.height = 170
-        if side == 0:
-            self.x = 30
-        else:
-            self.x = 1041
+
+        self.x = (1041 if side else 30)
         self.y = 240 - PADDLE_NEON
-        self.base_speed = speed # Kecepatan gerak basis paddle (tergantung difficulty)
-        self.speed = 0 # Kecepatan real paddle
+        self.speed = 0 # Kecepatan paddle
+
         self.board = board
         # Rect paddle
         self.rect = pygame.rect.Rect(self.x, self.y, self.width, self.height)
 
-    # Move logic function
-    def move(self):
-        self.y += self.speed
+    
+    def go_up(self):
+        self.speed = -5
 
-        # Jika paddle berada pada ujung board, paddle tidak akan
-        # terus berjalan kebawah
+
+    def go_down(self):
+        self.speed = 5
+
+
+    def stop(self):
+        self.speed = 0
+
+
+    def move(self):
+        if self.rect.bottom >=  self.board.height and self.speed > 0:
+            return
+        
+        if self.rect.top <= 0 and self.speed < 0:
+            return
+
+        self.y += self.speed
         self.rect.y = self.y
-        if self.rect.bottom >=  self.board.height:
-            self.rect.bottom =  self.board.height
-            self.y = self.rect.top
-        elif self.rect.top <= 0:
-            self.rect.top = 0
-            self.y = self.rect.top
+
 
     # Render function
     def render(self, screen:pygame.surface.Surface):
