@@ -12,7 +12,7 @@ class Paddle:
         self.height = 170
 
         self.x = (1041 if side else 30)
-        self.y = 240 - PADDLE_NEON
+        self.y = 240
         self.base_speed = 5
         self.speed = 0 # Kecepatan paddle
 
@@ -47,4 +47,4 @@ class Paddle:
     # Render function
     def render(self, screen:pygame.surface.Surface):
         # pygame.draw.rect(screen, (255,0,0), self.rect) # for debugging
-        screen.blit(self.image, [self.x -15, self.y -15])
+        screen.blit(self.image, [self.x - PADDLE_NEON, self.y - PADDLE_NEON])
