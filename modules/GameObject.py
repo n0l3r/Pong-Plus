@@ -9,7 +9,7 @@ class GameObject(pygame.sprite.Sprite):
 
     all_objects = []
 
-    def __init__(self, rect:pygame.Rect, has_images = False, has_sounds = False ) -> None:
+    def __init__(self, rect:pygame.Rect, has_images = True, has_sounds = True ) -> None:
         super().__init__()
         self.rect = rect
         # Float untuk presisi posisi
