@@ -13,13 +13,13 @@ class Paddle(GameObject):
         self.width = 20
         self.height = 170
 
+        # Rect paddle
+        super().__init__(pygame.rect.Rect(0, 0, self.width, self.height))
+
         self.x = (1041 if side else 30)
         self.y = 240
         self.base_speed = 5
         self.speed = 0 # Kecepatan paddle
-
-        # Rect paddle
-        super().__init__(pygame.rect.Rect(self.x, self.y, self.width, self.height))
 
     
     def go_up(self):
