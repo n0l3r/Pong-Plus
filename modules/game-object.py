@@ -1,4 +1,3 @@
-import re
 import pygame
 
 class Game_Object(pygame.sprite.Sprite):
