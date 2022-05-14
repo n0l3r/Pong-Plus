@@ -16,6 +16,7 @@ screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption("Pong Plus")
 pygame.display.set_icon(icon)
 
+
 # Main menu Function
 def main_menu():
     PLAY = True
@@ -61,6 +62,7 @@ def main_menu():
                
         pygame.display.update()
     pygame.quit()
+
 
 # Funtion untuk main
 def game_play(diff, max_score):

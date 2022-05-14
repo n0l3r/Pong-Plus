@@ -1,27 +1,28 @@
 from modules.Paddle import Paddle
+from modules.GameObject import GameObject
 import pygame
 from math import atan, sin, cos, sqrt
 
+# Neon pada image ball
+BALL_NEON = 15
 
-class Ball():
+class Ball(GameObject):
     def __init__(self, image:pygame.Surface, vec_x, vec_y, x, y) -> None:
-        self.image = image
         self.size = 50
+        self.image = pygame.transform.scale(image, [self.size + 28, self.size + 28])
+
+        super().__init__(pygame.rect.Rect(0, 0, self.size, self.size))
+
         self.vec_x = vec_x
         self.vec_y = vec_y
         self.x = x - self.size/2
         self.y = y - self.size/2
         self.velocity = sqrt(vec_x**2 + vec_y**2)
 
-        self.rect = pygame.rect.Rect(self.x, self.y, self.size, self.size)
-        self.image = pygame.transform.scale(image, [self.size + 28, self.size + 28])
-
 
     def move(self):
         self.x += self.vec_x
         self.y += self.vec_y
-        self.rect.x = self.x
-        self.rect.y = self.y
 
 
     def bounce(self, with_paddle:bool, paddle:Paddle = None):
@@ -62,5 +63,5 @@ class Ball():
         
 
     def render(self, screen):
-        screen.blit(self.image, (self.x - 15, self.y - 15))
+        screen.blit(self.image, (self.x - BALL_NEON, self.y - BALL_NEON))
         # pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging

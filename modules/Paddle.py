@@ -1,10 +1,12 @@
+from modules.GameObject import GameObject
 import pygame
 
 # Neon pada image paddle
 PADDLE_NEON = 15
 
-class Paddle:
-    def __init__(self, side:str, board:str, speed:int):
+class Paddle(GameObject):
+    def __init__(self, side:bool, board:str, speed:int):
+        self.board = board
         self.image = pygame.image.load("assets/game_board/Paddle-Template.png")
         self.image = pygame.transform.scale(self.image,[50, 200])
         self.side = side # 0 = kiri, 1 = kanan
@@ -16,9 +18,8 @@ class Paddle:
         self.base_speed = 5
         self.speed = 0 # Kecepatan paddle
 
-        self.board = board
         # Rect paddle
-        self.rect = pygame.rect.Rect(self.x, self.y, self.width, self.height)
+        super().__init__(pygame.rect.Rect(self.x, self.y, self.width, self.height))
 
     
     def go_up(self):
@@ -41,7 +42,6 @@ class Paddle:
             return
 
         self.y += self.speed
-        self.rect.y = self.y
 
 
     # Render function
