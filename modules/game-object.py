@@ -1,4 +1,4 @@
-import pygame
+import pygame, abc
 
 class Game_Object(pygame.sprite.Sprite):
     """
@@ -6,12 +6,25 @@ class Game_Object(pygame.sprite.Sprite):
     Constructor mengambil satu argumen yaitu rect (pygame.Rect) dari objeknya
     Punya getter dan setter sendiri buat nentuin posisi (x,y).
     """
-    def __init__(self, rect:pygame.Rect ) -> None:
+
+    all_objects = []
+
+    def __init__(self, rect:pygame.Rect, has_images = False, has_sounds = False ) -> None:
         super().__init__()
         self.rect = rect
         # Float untuk presisi posisi
         self._x = float(rect.x)
         self._y = float(rect.y)
+
+        self.has_image = has_images
+        self.has_sounds = has_sounds
+
+        # Store all instantiated game objects
+        self.all_objects.append(self)
+
+    @abc.abstractmethod
+    def render(self, screen):
+        pass
     
     @property
     def x(self):
