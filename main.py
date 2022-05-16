@@ -109,7 +109,6 @@ def game_play(diff, max_score):
                     paddle_right.go_up()
                 elif event.key == pygame.K_DOWN:
                     paddle_right.go_down()
-
             # Check keyup
             if event.type == pygame.KEYUP:
                 # Kontrol paddle kiri

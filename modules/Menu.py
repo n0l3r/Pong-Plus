@@ -93,6 +93,7 @@ class Play(Menu):
         self.decrease_btn = Button(image=decrease_img, pos=(728, 450)) 
         self.back_btn = Button(image=back_img, pos=(505, 575))
 
+        self.difficulty = None
         self.max_score = 1 # Attribut tambahan untuk skor maksimum
 
 
@@ -162,14 +163,16 @@ def change_menu(menu:dict, crnt_page:str, screen):
             menu["play_menu"].render(screen)
 
         if menu["play_menu"].easy_btn.check(pygame.mouse.get_pos()):
-            return "play_easy"
+            menu["play_menu"].difficulty = 0
+            return "<in-game>"
 
         if menu["play_menu"].medium_btn.check(pygame.mouse.get_pos()):
-            return "play_medium"
+            menu["play_menu"].difficulty = 1
+            return "<in-game>"
 
         if menu["play_menu"].hard_btn.check(pygame.mouse.get_pos()):
-            return "play_hard"
-            
+            menu["play_menu"].difficulty = 2
+            return "<in-game>"
 
     # Else return default state
     return crnt_page

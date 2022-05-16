@@ -1,5 +1,5 @@
 # Modules
-import pygame
+import pygame,sys
 from modules.Game import Game
 
 # PYGAME INIT
@@ -17,4 +17,4 @@ g = Game(screen, fps_clock)
 
 # Mainloop
 while True:
-    pass
+    g.play()
