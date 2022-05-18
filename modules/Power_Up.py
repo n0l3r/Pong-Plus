@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Item(ABC):
+class Power_Up(ABC):
     def __init__(self, size, pos_x, pos_y, lifetime, duration):
         self.size = size
         self.pos_x = pos_x
@@ -16,7 +16,7 @@ class Item(ABC):
     def show_icon(self):
         pass
 
-class SpeedUp(Item):
+class SpeedUp(Power_Up):
     def __init__(self, size, pos_x, pos_y, lifetime, duration):
         super().__init__(size, pos_x, pos_y, lifetime, duration)
 
@@ -26,7 +26,7 @@ class SpeedUp(Item):
     def show_icon(self):
         pass
 
-class Striketrough(Item):
+class Striketrough(Power_Up):
     def __init__(self, size, pos_x, pos_y, lifetime, duration):
         super().__init__(size, pos_x, pos_y, lifetime, duration)
 
@@ -36,7 +36,7 @@ class Striketrough(Item):
     def show_icon(self):
         pass
 
-class Expand(Item):
+class Expand(Power_Up):
     def __init__(self, size, pos_x, pos_y, lifetime, duration):
         super().__init__(size, pos_x, pos_y, lifetime, duration)
 
@@ -46,7 +46,7 @@ class Expand(Item):
     def show_icon(self):
         pass
 
-class Shrink(Item):
+class Shrink(Power_Up):
     def __init__(self, size, pos_x, pos_y, lifetime, duration):
         super().__init__(size, pos_x, pos_y, lifetime, duration)
 
