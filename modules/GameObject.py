@@ -15,6 +15,8 @@ class GameObject(abc.ABC):
         # Float untuk presisi posisi
         self._x = float(rect.x)
         self._y = float(rect.y)
+        self._width = float(rect.width)
+        self._height = float(rect.height)
 
         self.has_image = has_images
         self.has_sounds = has_sounds
@@ -31,20 +33,31 @@ class GameObject(abc.ABC):
     @property
     def x(self):
         return self._x
-
-
     @x.setter
     def x(self, val:float):
         self._x = val
         self.rect.x = int(self._x)
 
-
     @property
     def y(self):
         return self._y
-
-
     @y.setter
     def y(self, val:float):
         self._y = val
         self.rect.y = int(self._y)
+
+    @property
+    def width(self):
+        return self._width
+    @width.setter
+    def width(self, val):
+        self._width = val
+        self.rect.width = int(self._width)
+
+    @property
+    def height(self):
+        return self._height
+    @height.setter
+    def height(self, val):
+        self._height = val
+        self.rect.height = int(self._height)

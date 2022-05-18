@@ -3,17 +3,15 @@ import pygame
 
 # Neon pada image paddle
 PADDLE_NEON = 15
+PADDLE_BASE_HEIGHT = 170
 
 class Paddle(GameObject):
     def __init__(self, side:bool, base_speed:int):
+        self.side = side # 0 = kiri, 1 = kanan
+        # Rect paddle
+        super().__init__(pygame.rect.Rect(0, 0, 20, PADDLE_BASE_HEIGHT))
         self.image = pygame.image.load("assets/game_board/Paddle-Template.png")
         self.image = pygame.transform.scale(self.image,[50, 200])
-        self.side = side # 0 = kiri, 1 = kanan
-        self.width = 20
-        self.height = 170
-
-        # Rect paddle
-        super().__init__(pygame.rect.Rect(0, 0, self.width, self.height))
 
         self.x = (1041 if side else 30)
         self.y = 240
@@ -21,6 +19,8 @@ class Paddle(GameObject):
         self.speed = 0 # Kecepatan paddle
 
         self.modifiers = []
+        # self.modifiers = [{"name":"shrink", "duration":15}]
+        # self.modifiers = [{"name":"expand", "duration":15}]
     
     def go_up(self):
         self.speed = -self.base_speed
@@ -51,6 +51,14 @@ class Paddle(GameObject):
             self.y -= self.rect.top - top_boundary
             return
 
+        if self.check_modifier("expand"):
+            self.height = PADDLE_BASE_HEIGHT + 40
+            self.image = pygame.transform.scale(self.image,[50, self.height + 30])
+
+        if self.check_modifier("shrink"):
+            self.height = PADDLE_BASE_HEIGHT - 40
+            self.image = pygame.transform.scale(self.image,[50, self.height + 30])
+
     # Modifiers tags (name) untuk pengecekan modfier
     @property
     def modifier_tags(self):
@@ -67,6 +75,10 @@ class Paddle(GameObject):
     def remove_modifiers(self, modifier):
         if modifier["name"] in self.modifier_tags:
             self.modifiers.pop(self.modifiers.index(modifier))
+
+    def check_modifier(self, modifier_tag:str):
+        """Periksa jika bola memiliki modifier yang ditentukan."""
+        return modifier_tag in self.modifier_tags
 
     # Render function
     def render(self, screen:pygame.surface.Surface):
