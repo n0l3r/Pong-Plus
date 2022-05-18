@@ -84,7 +84,7 @@ def game_play(diff, max_score):
     
     # Bola
     ball_img = pygame.image.load("assets/game_board/Ball-Reacr.png")
-    ball = Ball(ball_img, diff, 0, 545, 300)
+    ball = Ball(ball_img, 545, 300, diff, 0)
 
     # Player
     player_1 = Player(0)
@@ -164,16 +164,7 @@ def game_play(diff, max_score):
             board.score_boxes[0].set_value(player_1.score)
             board.score_render(screen)
 
-        # Cek collision bola dengan tembok atas dan bawah
-        if ball.rect.top <= 0 or ball.rect.bottom >= 601:
-            ball.bounce(0)
-
-        # Cek collision bola dengan paddle
-        if ball.rect.colliderect(paddle_left.rect):
-            ball.bounce(1, paddle_left)
-        elif ball.rect.colliderect(paddle_right.rect):
-            ball.bounce(1, paddle_right)
-
+        ball.check_collision(0, 601, paddle_left, paddle_right)
 
         screen.blit(gameScreen, [board.x + 30, board.y + 30])
         pygame.display.update([board.x, 0, board.width + 55, SIZE[1]])
