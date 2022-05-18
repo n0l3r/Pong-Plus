@@ -102,5 +102,5 @@ class Ball(GameObject):
 
     def render(self, screen):
         screen.blit(self.image, (self.x - BALL_NEON, self.y - BALL_NEON))
-        #pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
+        pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
         

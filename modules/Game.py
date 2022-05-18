@@ -121,8 +121,8 @@ class Game:
             self.clock.tick(self.FPS)
 
             # Sementara exit setelah menang (Nanti diubah ketika halaman pemenang sudah dibuat)
-            if player_left.score >= self.max_score or player_right.score >= self.max_score:
-                return "<exit>"
+            # if player_left.score >= self.max_score or player_right.score >= self.max_score:
+            #     return "<exit>"
 
 
     # Pause loop

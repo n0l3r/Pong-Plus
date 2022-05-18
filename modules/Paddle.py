@@ -70,5 +70,5 @@ class Paddle(GameObject):
 
     # Render function
     def render(self, screen:pygame.surface.Surface):
-        # pygame.draw.rect(screen, (255,0,0), self.rect) # for debugging
+        pygame.draw.rect(screen, (255,0,0), self.rect) # for debugging
         screen.blit(self.image, [self.x - PADDLE_NEON, self.y - PADDLE_NEON])
