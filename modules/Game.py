@@ -36,7 +36,8 @@ class Game:
 
     # Game loop
     def __game_cycle(self):
-        self.game_dict = self.loader.load_game(self.difficulty)
+        BALL_BASE_SPEED = (self.difficulty + 1)*2 + 5
+        self.game_dict = self.loader.load_game(BALL_BASE_SPEED)
 
         board = self.game_dict["board"]
         ball = self.game_dict["ball"]
@@ -104,12 +105,12 @@ class Game:
                     
             # Reset bola jika skor didapatkan
             if ball.rect.centerx < 0:
-                ball = Ball(ball.image, 545, 300, (self.difficulty + 1)*2, 180)
+                ball = Ball(ball.image, 545, 300, BALL_BASE_SPEED, 180)
                 player_right.update_score()
                 board.score_boxes[1].set_value(player_right.score)
 
             if ball.rect.centerx > 1096:
-                ball = Ball(ball.image, 545, 300, (self.difficulty + 1)*2, 0)  
+                ball = Ball(ball.image, 545, 300, BALL_BASE_SPEED, 0)  
                 player_right.update_score()
                 board.score_boxes[1].set_value(player_right.score)
 
