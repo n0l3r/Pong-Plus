@@ -51,16 +51,21 @@ class Paddle(GameObject):
             self.y -= self.rect.top - top_boundary
             return
 
+    # Modifiers tags (name) untuk pengecekan modfier
+    @property
+    def modifier_tags(self):
+        return list(i["name"] for i in self.modifiers)
+
     def add_modifiers(self, modifier):
         # If already have the modifiers, reset time
-        if modifier in self.modifiers:
+        if modifier["name"] in self.modifier_tags:
             self.modifiers[self.modifiers.index(modifier)]["duration"] = 15
         # else, add the modifiers
         else:
             self.modifiers.append(modifier)
 
     def remove_modifiers(self, modifier):
-        if modifier in self.modifiers:
+        if modifier["name"] in self.modifier_tags:
             self.modifiers.pop(self.modifiers.index(modifier))
 
     # Render function
