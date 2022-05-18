@@ -1,22 +1,16 @@
-from abc import ABC, abstractmethod
+import pygame
+from abc import abstractmethod
+from modules.GameObject import GameObject
 
-class Power_Up(ABC):
-    def __init__(self, size, pos_x, pos_y, lifetime, duration):
-        self.size = size
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.lifetime = lifetime
-        self.duration = duration
+class PowerUp(GameObject):
+    def __init__(self, rect: pygame.Rect, has_images=True, has_sounds=True) -> None:
+        super().__init__(rect, has_images, has_sounds)
 
     @abstractmethod
     def effect(self):
         pass
 
-    @abstractmethod
-    def show_icon(self):
-        pass
-
-class SpeedUp(Power_Up):
+class SpeedUp(PowerUp):
     def __init__(self, size, pos_x, pos_y, lifetime, duration):
         super().__init__(size, pos_x, pos_y, lifetime, duration)
 
@@ -26,7 +20,7 @@ class SpeedUp(Power_Up):
     def show_icon(self):
         pass
 
-class Striketrough(Power_Up):
+class Striketrough(PowerUp):
     def __init__(self, size, pos_x, pos_y, lifetime, duration):
         super().__init__(size, pos_x, pos_y, lifetime, duration)
 
@@ -36,7 +30,7 @@ class Striketrough(Power_Up):
     def show_icon(self):
         pass
 
-class Expand(Power_Up):
+class Expand(PowerUp):
     def __init__(self, size, pos_x, pos_y, lifetime, duration):
         super().__init__(size, pos_x, pos_y, lifetime, duration)
 
@@ -46,7 +40,7 @@ class Expand(Power_Up):
     def show_icon(self):
         pass
 
-class Shrink(Power_Up):
+class Shrink(PowerUp):
     def __init__(self, size, pos_x, pos_y, lifetime, duration):
         super().__init__(size, pos_x, pos_y, lifetime, duration)
 
