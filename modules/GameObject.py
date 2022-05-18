@@ -1,8 +1,8 @@
 import pygame, abc
 
-class GameObject(pygame.sprite.Sprite):
+class GameObject(abc.ABC):
     """
-    Class (turunan dari pygame.sprite.Sprites) untuk semua in-game object.
+    Abstract Class untuk semua in-game object.
     Constructor mengambil satu argumen yaitu rect (pygame.Rect) dari objeknya
     Punya getter dan setter sendiri buat nentuin posisi (x,y).
     """
