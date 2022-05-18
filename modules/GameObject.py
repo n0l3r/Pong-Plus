@@ -21,6 +21,7 @@ class GameObject(pygame.sprite.Sprite):
 
         # Store all instantiated game objects
         # self.all_objects.append(self)
+        
 
     @abc.abstractmethod
     def render(self, screen):

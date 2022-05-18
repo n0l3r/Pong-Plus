@@ -64,7 +64,7 @@ class Ball(GameObject):
                 self.move()
 
 
-    def check_collision(self, top_boundary, bottom_boundary, left_paddle, right_paddle):
+    def bounce_check(self, top_boundary, bottom_boundary, left_paddle, right_paddle):
         # Cek collision bola dengan tembok atas dan bawah
         if self.rect.top <= top_boundary or self.rect.bottom >= bottom_boundary:
             self.bounce(0)

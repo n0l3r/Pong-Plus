@@ -5,8 +5,7 @@ import pygame
 PADDLE_NEON = 15
 
 class Paddle(GameObject):
-    def __init__(self, side:bool, board:str, speed:int):
-        self.board = board
+    def __init__(self, side:bool, base_speed:int):
         self.image = pygame.image.load("assets/game_board/Paddle-Template.png")
         self.image = pygame.transform.scale(self.image,[50, 200])
         self.side = side # 0 = kiri, 1 = kanan
@@ -18,7 +17,7 @@ class Paddle(GameObject):
 
         self.x = (1041 if side else 30)
         self.y = 240
-        self.base_speed = 5
+        self.base_speed = base_speed
         self.speed = 0 # Kecepatan paddle
 
     
@@ -34,14 +33,22 @@ class Paddle(GameObject):
         self.speed = 0
 
 
-    def move(self):
-        if self.rect.bottom >=  self.board.height and self.speed > 0:
+    def move(self, top_boundary, bottom_boundary):
+        if self.rect.bottom >=  bottom_boundary and self.speed > 0:
             return
         
-        if self.rect.top <= 0 and self.speed < 0:
+        if self.rect.top <= top_boundary and self.speed < 0:
             return
 
         self.y += self.speed
+
+        if self.rect.bottom >  bottom_boundary:
+            self.y -= self.rect.bottom - bottom_boundary
+            return
+        
+        if self.rect.top < top_boundary:
+            self.y -= self.rect.top - top_boundary
+            return
 
 
     # Render function

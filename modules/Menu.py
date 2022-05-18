@@ -117,6 +117,7 @@ class Play(Menu):
         score_font = pygame.font.Font("assets/font/Montserrat-Regular.ttf", 32)
         score_text = score_font.render(str(self.max_score), True, (255, 255, 255), None)
         screen.blit(score_text, (660, 430))
+        
 
 def change_menu(menu:dict, crnt_page:str, screen):
     # Main Menu Page
