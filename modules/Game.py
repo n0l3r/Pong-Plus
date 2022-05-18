@@ -106,7 +106,7 @@ class Game:
             # Reset bola jika skor didapatkan
             if ball.rect.centerx < 0:
                 ball = Ball(ball.image, 545, 300, BALL_BASE_SPEED, 180)
-                player_right.update_score()
+                player_left.update_score()
                 board.score_boxes[1].set_value(player_right.score)
 
             if ball.rect.centerx > 1096:
