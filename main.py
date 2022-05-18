@@ -37,7 +37,7 @@ def main_menu():
     }
 
     # Kecepatan bola berdasarkan difficulty yang dipilih
-    game_diff = {"play_easy":5, "play_medium":10, "play_hard":15}
+    game_diff = [5, 10, 15]
 
     # Main Loop
     while PLAY:
@@ -54,8 +54,8 @@ def main_menu():
                     break
 
                 # Cek jika game dimulai
-                if page_menu in game_diff:
-                    game_play(game_diff[page_menu], menu_dict["play_menu"].max_score)
+                if page_menu == "<in-game>":
+                    game_play(game_diff[play_menu.difficulty], menu_dict["play_menu"].max_score)
 
             # Render menu
             menu_dict[page_menu].render(screen)
