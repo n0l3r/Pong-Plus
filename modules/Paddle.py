@@ -20,6 +20,7 @@ class Paddle(GameObject):
         self.base_speed = base_speed
         self.speed = 0 # Kecepatan paddle
 
+        self.modifiers = []
     
     def go_up(self):
         self.speed = -self.base_speed
@@ -50,6 +51,17 @@ class Paddle(GameObject):
             self.y -= self.rect.top - top_boundary
             return
 
+    def add_modifiers(self, modifier):
+        # If already have the modifiers, reset time
+        if modifier in self.modifiers:
+            self.modifiers[self.modifiers.index(modifier)]["duration"] = 15
+        # else, add the modifiers
+        else:
+            self.modifiers.append(modifier)
+
+    def remove_modifiers(self, modifier):
+        if modifier in self.modifiers:
+            self.modifiers.pop(self.modifiers.index(modifier))
 
     # Render function
     def render(self, screen:pygame.surface.Surface):

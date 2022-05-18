@@ -3,49 +3,57 @@ from abc import abstractmethod
 from modules.GameObject import GameObject
 
 class PowerUp(GameObject):
-    def __init__(self, rect: pygame.Rect, has_images=True, has_sounds=True) -> None:
-        super().__init__(rect, has_images, has_sounds)
+    def __init__(self,x, y) -> None:
+        self.rect = pygame.Rect(x, y, 60, 60)
+        super().__init__(self.rect, True, True)
 
     @abstractmethod
-    def effect(self):
+    def give_effect(self):
         pass
 
 class SpeedUp(PowerUp):
-    def __init__(self, size, pos_x, pos_y, lifetime, duration):
-        super().__init__(size, pos_x, pos_y, lifetime, duration)
+    def __init__(self, x, y) -> None:
+        super().__init__(x, y)
 
-    def effect(self):
-        pass
+    def give_effect(self, ball):
+        modifier = {
+            "name": "speed_up",
+            "duration": 15,
+        }
+        ball.add_modifiers(modifier)
 
-    def show_icon(self):
-        pass
 
 class Striketrough(PowerUp):
-    def __init__(self, size, pos_x, pos_y, lifetime, duration):
-        super().__init__(size, pos_x, pos_y, lifetime, duration)
+    def __init__(self, x, y) -> None:
+        super().__init__(x, y)
 
-    def effect(self):
-        pass
+    def give_effect(self, ball):
+        modifier = {
+            "name": "striketrough",
+            "duration": 15,
+        }
+        ball.add_modifiers(modifier)
 
-    def show_icon(self):
-        pass
 
 class Expand(PowerUp):
-    def __init__(self, size, pos_x, pos_y, lifetime, duration):
-        super().__init__(size, pos_x, pos_y, lifetime, duration)
+    def __init__(self, x, y) -> None:
+        super().__init__(x, y)
 
-    def effect(self):
-        pass
+    def give_effect(self, player):
+        modifier = {
+            "name": "expand",
+            "duration": 15,
+        }
+        player.add_modifiers(modifier)
 
-    def show_icon(self):
-        pass
 
 class Shrink(PowerUp):
-    def __init__(self, size, pos_x, pos_y, lifetime, duration):
-        super().__init__(size, pos_x, pos_y, lifetime, duration)
+    def __init__(self, x, y) -> None:
+        super().__init__(x, y)
 
-    def effect(self):
-        pass
-
-    def show_icon(self):
-        pass
+    def give_effect(self, player):
+        modifier = {
+            "name": "shrink",
+            "duration": 15,
+        }
+        player.add_modifiers(modifier)

@@ -19,6 +19,7 @@ class Ball(GameObject):
         self.x = x - self.size/2
         self.y = y - self.size/2
         
+        self.modifiers = []
 
     def move(self):
         self.x += self.vec_x
@@ -75,6 +76,17 @@ class Ball(GameObject):
         elif self.rect.colliderect(right_paddle.rect):
             self.bounce(1, right_paddle)
         
+    def add_modifiers(self, modifier):
+        # If already have the modifiers, reset time
+        if modifier in self.modifiers:
+            self.modifiers[self.modifiers.index(modifier)]["duration"] = 15
+        # else, add the modifiers
+        else:
+            self.modifiers.append(modifier)
+
+    def remove_modifiers(self, modifier):
+        if modifier in self.modifiers:
+            self.modifiers.pop(self.modifiers.index(modifier))
 
     def render(self, screen):
         screen.blit(self.image, (self.x - BALL_NEON, self.y - BALL_NEON))
