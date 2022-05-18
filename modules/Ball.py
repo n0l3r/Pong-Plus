@@ -1,7 +1,7 @@
 from modules.Paddle import Paddle
 from modules.GameObject import GameObject
 import pygame
-from math import atan, sin, cos, radians, hypot
+from math import atan, sin, cos, tan, radians, hypot
 
 # Neon pada image ball
 BALL_NEON = 15
@@ -50,7 +50,7 @@ class Ball(GameObject):
             max_angle = radians(60)
 
             # Membatasi sudut maksimal kemiringan lintasan bola
-            if abs(slope) > max_angle:
+            if abs(slope) > tan(max_angle):
                 self.vec_x = (-1 if paddle.side else 1)*self.speed*cos(max_angle)
                 self.vec_y = (-1 if self.vec_y < 0 else 1)*self.speed*sin(max_angle)
 
