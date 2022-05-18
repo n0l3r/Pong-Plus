@@ -14,7 +14,7 @@ class Loader:
             "play_menu": Menu.Play()
         }
 
-    def load_game(self, difficulty,  ball_img = pygame.image.load("assets/game_board/Ball-Reacr.png")):
+    def load_game(self, difficulty,  ball_img = pygame.image.load("assets/game_board/Ball-React.png")):
         return {
             "board" : Board(),
             "paddle_left" : Paddle(0, 7),

@@ -4,12 +4,12 @@ import pygame
 from math import atan, sin, cos, tan, radians, hypot
 
 # Neon pada image ball
-BALL_NEON = 15
+BALL_NEON = 20
 
 class Ball(GameObject):
     def __init__(self, image:pygame.Surface, x, y, speed, angle) -> None:
         self.size = 50
-        self.image = pygame.transform.scale(image, [self.size + 28, self.size + 28])
+        self.image = pygame.transform.scale(image, [self.size + BALL_NEON*2, self.size + BALL_NEON*2])
 
         super().__init__(pygame.rect.Rect(0, 0, self.size, self.size))
 
