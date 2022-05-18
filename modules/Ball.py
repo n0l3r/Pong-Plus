@@ -34,29 +34,33 @@ class Ball(GameObject):
 
             if height_diff == 0:
                 self.vec_x *= -1
-                self.move()
+
+                while self.rect.colliderect(paddle.rect):
+                    self.move()
+
                 return
 
             focal_point = 2*(-paddle.height if paddle.side else paddle.height)
-            ref_angle = atan(focal_point/height_diff) # Sudut bidang pantul
+            ref_angle = atan(focal_point/height_diff) # Sudut garis pantul (rad)
 
             self.vec_x = self.vec_x*cos(2*ref_angle) + self.vec_y*sin(2*ref_angle)
             self.vec_y = self.vec_x*sin(2*ref_angle) - self.vec_y*cos(2*ref_angle)
 
-            slope = self.vec_y/self.vec_x
+            slope = self.vec_y/self.vec_x # kemiringan lintasan bola
             max_angle = radians(60)
 
-            # Membatasi sudut maksimal bola bergerak
-            if slope > max_angle or slope < -max_angle:
+            # Membatasi sudut maksimal kemiringan lintasan bola
+            if abs(slope) > max_angle:
                 self.vec_x = (-1 if paddle.side else 1)*self.speed*cos(max_angle)
                 self.vec_y = (-1 if self.vec_y < 0 else 1)*self.speed*sin(max_angle)
 
-            # Mereset kecepatan bola jika berbeda dari kecepatan asli
+            # Mereset kecepatan bola jika kecepatan berubah ketika memantul
             new_speed = hypot(self.vec_x, self.vec_y)
             self.vec_x *= self.speed/new_speed
             self.vec_y *= self.speed/new_speed
 
-            self.move()
+            while self.rect.colliderect(paddle.rect):
+                self.move()
 
 
     def check_collision(self, top_boundary, bottom_boundary, left_paddle, right_paddle):
@@ -73,4 +77,5 @@ class Ball(GameObject):
 
     def render(self, screen):
         screen.blit(self.image, (self.x - BALL_NEON, self.y - BALL_NEON))
-        # pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
+        #pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
+        
