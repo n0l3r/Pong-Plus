@@ -56,7 +56,9 @@ class Game:
 
         # Screen baru untuk game
         game_screen = pygame.Surface([1091,601], pygame.SRCALPHA, 32).convert_alpha()
-
+        self.game_dict["game_music"] = pygame.mixer.Sound()
+        self.game_dict["game_music"].set_volume(0.5)
+        self.game_dict["game_music"].play(-1)
         # game loop
         while True:
             for event in pygame.event.get():

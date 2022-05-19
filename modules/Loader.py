@@ -21,5 +21,6 @@ class Loader:
             "paddle_right" : Paddle(1, 7),
             "ball" : Ball(ball_img, 545, 300, ball_speed, 0),
             "player_left" : Player(0),
-            "player_right" : Player(1)
+            "player_right" : Player(1),
+            "game_music": pygame.mixer.Sound("assets/sounds/play_board.wav")
         }
