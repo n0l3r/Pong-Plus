@@ -1,12 +1,16 @@
 from abc import ABC, abstractmethod
 import pygame, sys
 from modules.Button import Button
-
+pygame.mixer.init(buffer=64)
 TITLE = "Pong Plus"
 
 MENU_BG = (8, 32, 50)
 GAME_BG = (1, 0, 6)
 class Menu(ABC):
+
+    click_sound = pygame.mixer.Sound("assets/sounds/click.wav")
+    click_sound.set_volume(0.5)
+
     def __init__(self, name):
         self.name = name
 
@@ -93,6 +97,7 @@ class Play(Menu):
         self.decrease_btn = Button(image=decrease_img, pos=(728, 450)) 
         self.back_btn = Button(image=back_img, pos=(505, 575))
 
+        self.difficulty = None
         self.max_score = 1 # Attribut tambahan untuk skor maksimum
 
 
@@ -116,60 +121,72 @@ class Play(Menu):
         score_font = pygame.font.Font("assets/font/Montserrat-Regular.ttf", 32)
         score_text = score_font.render(str(self.max_score), True, (255, 255, 255), None)
         screen.blit(score_text, (660, 430))
+        
 
 def change_menu(menu:dict, crnt_page:str, screen):
     # Main Menu Page
     if crnt_page == "main_menu":
         if menu["main_menu"].play_btn.check(pygame.mouse.get_pos()):
             menu["play_menu"].render(screen)
+            Menu.click_sound.play()
             return "play_menu"
 
         elif menu["main_menu"].about_btn.check(pygame.mouse.get_pos()):
             menu["about_menu"].render(screen)
+            Menu.click_sound.play()
             return "about_menu"
 
         elif menu["main_menu"].info_btn.check(pygame.mouse.get_pos()):
             menu["info_menu"].render(screen)
+            Menu.click_sound.play()
             return "info_menu"
 
         elif menu["main_menu"].exit_btn.check(pygame.mouse.get_pos()):
+            Menu.click_sound.play()
             return "<exit>"
 
     # About Menu
     elif crnt_page == "about_menu":
         if menu["about_menu"].back_btn.check(pygame.mouse.get_pos()):
             menu["main_menu"].render(screen)
+            Menu.click_sound.play()
             return "main_menu"
 
     # Info Menu
     elif crnt_page == "info_menu":
         if menu["info_menu"].back_btn.check(pygame.mouse.get_pos()):
             menu["main_menu"].render(screen)
+            Menu.click_sound.play()
             return "main_menu"
             
     # Play Menu
     elif crnt_page == "play_menu":
         if menu["play_menu"].back_btn.check(pygame.mouse.get_pos()):
             menu["main_menu"].render(screen)
+            Menu.click_sound.play()
             return "main_menu"
         
         if menu["play_menu"].increase_btn.check(pygame.mouse.get_pos()):
             menu["play_menu"].max_score += 1
             menu["play_menu"].render(screen)
+            Menu.click_sound.play()
                     
         if menu["play_menu"].decrease_btn.check(pygame.mouse.get_pos()) and menu["play_menu"].max_score > 1:
             menu["play_menu"].max_score -= 1
             menu["play_menu"].render(screen)
+            Menu.click_sound.play()
 
         if menu["play_menu"].easy_btn.check(pygame.mouse.get_pos()):
-            return "play_easy"
+            menu["play_menu"].difficulty = 0
+            return "<in-game>"
 
         if menu["play_menu"].medium_btn.check(pygame.mouse.get_pos()):
-            return "play_medium"
+            menu["play_menu"].difficulty = 1
+            return "<in-game>"
 
         if menu["play_menu"].hard_btn.check(pygame.mouse.get_pos()):
-            return "play_hard"
-            
+            menu["play_menu"].difficulty = 2
+            return "<in-game>"
 
     # Else return default state
     return crnt_page
