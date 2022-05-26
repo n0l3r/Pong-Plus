@@ -6,7 +6,7 @@ from modules.Game import Game
 pygame.init()
 fps_clock = pygame.time.Clock()
 
-# Display Setting
+# Display Settings
 SIZE = (1280, 720)
 icon = pygame.image.load("assets/images/icon.png")
 screen = pygame.display.set_mode(SIZE)
