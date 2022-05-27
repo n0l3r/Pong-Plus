@@ -105,8 +105,8 @@ python main.py
 <img src="assets/demo/Winner.png">
 
 
-
-
+## Video run with Docker
+[![Running pygame with docker container - IF2223 Operating System](https://i.ytimg.com/vi/p2YXdauOEM0/maxresdefault.jpg)](https://www.youtube.com/watch?v=p2YXdauOEM0)
 
 
 
