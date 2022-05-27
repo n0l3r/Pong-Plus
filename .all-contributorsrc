@@ -1,0 +1,82 @@
+{
+  "projectName": "Pong-Plus",
+  "projectOwner": "Perguruan Bunglon Beracun",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "badgeTemplate": "<img alt=\"All Contributors\" src=\"https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg\">",
+  "contributors": [
+    {
+      "login": "n0l3r",
+      "name": "Naufal Taufiq Ridwan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/71002775?s=96&v=4",
+      "profile": "https://instagram.com/n0l3r",
+      "contributions": [
+        "code",
+        "manager"
+      ]
+    },
+    {
+      "login": "PoohNoCounter",
+      "name": "Andre Riantasa Wijaya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/103806605?v=4",
+      "profile": "-",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "vinsensiusrobby15",
+      "name": "Vinsensius Robby Anggara",
+      "avatar_url": "https://avatars.githubusercontent.com/u/103443338?v=4",
+      "profile": "-",
+      "contributions": [
+        "designer"
+      ]
+    },
+    {
+      "login": "HrtnZx",
+      "name": "M.Herton Amarta Buana",
+      "avatar_url": "https://avatars.githubusercontent.com/u/95176590?v=4",
+      "profile": "-",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "AfifSaifullah",
+      "name": "Afif Syaifullah Fattah",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39359508?v=4",
+      "profile": "-",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "kazupon",
+      "name": "kazuya kawaguchi",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/72989?v=4",
+      "profile": "https://www.patreon.com/kazupon",
+      "contributions": [
+        "code",
+        "blog"
+      ]
+    },
+    {
+      "login": "hfdzz",
+      "name": "Yusuf Hafidz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80891279?v=4",
+      "profile": "-",
+      "contributions": [
+        "code",
+        "designer"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
