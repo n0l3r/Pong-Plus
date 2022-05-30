@@ -69,7 +69,7 @@ class Ball(GameObject):
 
             # Membatasi sudut maksimal kemiringan lintasan bola
             if abs(slope) > tan(max_angle):
-                self.vec_x = (-1 if paddle.side else 1)*self.speed*cos(max_angle)
+                self.vec_x = (-1 if self.vec_x < 0 else 1)*self.speed*cos(max_angle)
                 self.vec_y = (-1 if self.vec_y < 0 else 1)*self.speed*sin(max_angle)
 
             # Mereset kecepatan bola jika kecepatan berubah ketika memantul
