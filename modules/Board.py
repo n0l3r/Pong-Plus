@@ -27,6 +27,7 @@ class Board:
     # Board : Screen_area ratio = 7 : 8
     default_width = 1120
     default_height = 630
+
     def __init__(self):
 
         #    -> img_width / img_heigth adalah size dari GAMBAR board (tanpa size neon).
@@ -43,19 +44,21 @@ class Board:
         # Size board : 1091 x 601
         self.size = self.width,self.height = [ (self.img_width*549)/560 - 8, (self.img_height*304)/315 - 8]
         self.score_boxes = [Scores(True, self), Scores(False, self)]
-        self.timer = Timer(self)
+        self.timer = Timer(self, pygame.time.get_ticks())
+
     
     def render(self, screen):
         # Board (self)
         screen.blit(self.image, [self.x,self.y]) 
-        
-        # Timer
-        self.timer.render(screen)
+
         
     def score_render(self, screen):
         # Score boxes
         self.score_boxes[0].render(screen)
         self.score_boxes[1].render(screen)
+
+        # Timer
+        self.timer.render(screen)
 
 # Score pada board
 class Scores:
@@ -69,13 +72,16 @@ class Scores:
         # self.image = pygame.transform.scale(self.image, [self.width, self.height])
         self.__value = score_val
 
+
     def set_value(self, amount:int):
         self.__value = amount
+
 
     def get_value(self) -> str:
         if self.__value > 999:
             return "---"
         return str(self.__value)
+
 
     def render(self, screen):
         screen.blit(self.image, [self.x, self.y])
@@ -86,6 +92,7 @@ class Scores:
             self.y + (self.height - score_text.get_height())/2
             ))
 
+
     def __set_pos(self, win_width = 1280, win_height = 720):
         self.y = win_height/126
         temp_x = (win_width * 5)/64
@@ -94,12 +101,14 @@ class Scores:
         else:
             self.x = (win_width/2) + temp_x
 
+
 # Timer (unfinished)
 class Timer:
-    def __init__(self, board:Board) -> None:
-        self.start_time = 0.0
+    def __init__(self, board:Board, start_time) -> None:
+        self.start_time = start_time
         self.is_counting = False
         self.cor_board = board
+
 
     def render(self, screen):
         timer_font = pygame.font.Font("assets/font/Montserrat-Regular.ttf", 36)
@@ -109,5 +118,13 @@ class Timer:
             10
             ))
 
+
     def get_time(self):
-        return "01:34"
+        time_left = (300000 - (pygame.time.get_ticks() - self.start_time)) // 1000
+
+        if time_left <= 0:
+            return "00:00"
+
+        time_str = str(time_left // 60) + ':' + str(time_left % 60)
+
+        return time_str

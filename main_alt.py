@@ -28,7 +28,6 @@ game_dict = {}
 def menu_loop():
     current_menu = "main_menu"
 
-    # Loop
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -69,13 +68,12 @@ def game_loop(difficulty, max_score):
 
     # Render board
     screen_cpy = screen.copy()
-    board.render(screen_cpy) # board di render ke copy dari screen agar lebih cepat
+    board.render(screen_cpy) # board di render ke copy dari screen utk mengurangi lag
     pygame.display.flip()
 
     # Screen baru untuk game
     game_screen = pygame.Surface([1091,601], pygame.SRCALPHA, 32).convert_alpha()
 
-    # Loop
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
