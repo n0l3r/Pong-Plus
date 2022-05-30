@@ -3,13 +3,18 @@ from abc import abstractmethod
 from modules.GameObject import GameObject
 
 class PowerUp(GameObject):
-    def __init__(self,x, y) -> None:
+    def __init__(self, x, y, image:pygame.Surface) -> None:
         self.rect = pygame.Rect(x, y, 60, 60)
+        self.image = image
+
         super().__init__(self.rect, True, True)
 
     @abstractmethod
     def give_effect(self):
         pass
+
+    def render(self, screen):
+        screen.blit(self.image, (self.x, self.y))
 
 class SpeedUp(PowerUp):
     def __init__(self, x, y) -> None:
@@ -20,6 +25,7 @@ class SpeedUp(PowerUp):
             "name": "speed_up",
             "duration": 15,
         }
+
         ball.add_modifiers(modifier)
 
 
@@ -32,6 +38,7 @@ class Striketrough(PowerUp):
             "name": "striketrough",
             "duration": 15,
         }
+
         ball.add_modifiers(modifier)
 
 
@@ -44,6 +51,7 @@ class Expand(PowerUp):
             "name": "expand",
             "duration": 15,
         }
+
         player.add_modifiers(modifier)
 
 
@@ -56,4 +64,5 @@ class Shrink(PowerUp):
             "name": "shrink",
             "duration": 15,
         }
+        
         player.add_modifiers(modifier)

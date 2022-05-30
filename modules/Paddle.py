@@ -18,7 +18,6 @@ class Paddle(GameObject):
         self.base_speed = base_speed
         self.speed = 0 # Kecepatan paddle
 
-        self.modifiers = []
         # self.modifiers = [{"name":"shrink", "duration":15}]
         # self.modifiers = [{"name":"expand", "duration":15}]
     
@@ -59,28 +58,8 @@ class Paddle(GameObject):
             self.height = PADDLE_BASE_HEIGHT - 40
             self.image = pygame.transform.scale(self.image,[50, self.height + 30])
 
-    # Modifiers tags (name) untuk pengecekan modfier
-    @property
-    def modifier_tags(self):
-        return list(i["name"] for i in self.modifiers)
-
-    def add_modifiers(self, modifier):
-        # If already have the modifiers, reset time
-        if modifier["name"] in self.modifier_tags:
-            self.modifiers[self.modifiers.index(modifier)]["duration"] = 15
-        # else, add the modifiers
-        else:
-            self.modifiers.append(modifier)
-
-    def remove_modifiers(self, modifier):
-        if modifier["name"] in self.modifier_tags:
-            self.modifiers.pop(self.modifiers.index(modifier))
-
-    def check_modifier(self, modifier_tag:str):
-        """Periksa jika bola memiliki modifier yang ditentukan."""
-        return modifier_tag in self.modifier_tags
 
     # Render function
     def render(self, screen:pygame.surface.Surface):
-        pygame.draw.rect(screen, (255,0,0), self.rect) # for debugging
         screen.blit(self.image, [self.x - PADDLE_NEON, self.y - PADDLE_NEON])
+        # pygame.draw.rect(screen, (255,0,0), self.rect) # for debugging

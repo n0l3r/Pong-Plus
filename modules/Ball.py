@@ -19,17 +19,18 @@ class Ball(GameObject):
         self.x = x - self.size/2
         self.y = y - self.size/2
         
-        self.modifiers = []
         # self.modifiers = [{"name":"striketrough", "duration":15}]
         # self.modifiers = [{"name":"speed_up", "duration":15}]
         # self.modifiers = [{"name":"striketrough", "duration":15}, {"name":"speed_up", "duration":15}]
 
     def move(self):
         mult = 1
+        
         if self.check_modifier("speed_up"):
             # 30% Speed Up
             # harusnya 30% tpi jadi 50% biar keliatana ngebutnye
             mult = 1.5
+
         self.x += self.vec_x * mult
         self.y += self.vec_y * mult
 
@@ -38,10 +39,10 @@ class Ball(GameObject):
         if not with_paddle: # Jika bola collide dengan wall, bukan dengan paddle
             if self.check_modifier("striketrough"):
                 # Jika bola keatas
-                if self.vec_y < 0 and self.rect.bottom < 0:
+                if self.vec_y < 0:
                     self.y = 601 # Bottom of board
                 # Jika bola kebawah
-                elif self.vec_y > 0 and self.rect.top > 601:
+                else:
                     self.y = 0 - self.rect.height
             else:
                 self.vec_y *= -1
@@ -90,29 +91,9 @@ class Ball(GameObject):
             self.bounce(1, left_paddle)
         elif self.rect.colliderect(right_paddle.rect):
             self.bounce(1, right_paddle)
-        
-    # Modifiers tags (name) untuk pengecekan modfier
-    @property
-    def modifier_tags(self):
-        return list(i["name"] for i in self.modifiers)
 
-    def add_modifiers(self, modifier):
-        # If already have the modifiers, reset time
-        if modifier["name"] in self.modifier_tags:
-            self.modifiers[self.modifiers.index(modifier)]["duration"] = 15
-        # else, add the modifiers
-        else:
-            self.modifiers.append(modifier)
-
-    def remove_modifiers(self, modifier):
-        if modifier["name"] in self.modifier_tags:
-            self.modifiers.pop(self.modifiers.index(modifier))
-
-    def check_modifier(self, modifier_tag:str):
-        """Periksa jika bola memiliki modifier yang ditentukan."""
-        return modifier_tag in self.modifier_tags
 
     def render(self, screen):
         screen.blit(self.image, (self.x - BALL_NEON, self.y - BALL_NEON))
-        pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
+        # pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
         
