@@ -168,7 +168,7 @@ def game_loop(difficulty, max_score):
 
         if ball.rect.centerx > 1096:
             ball = Ball(ball.image, 545, 300, (difficulty + 1)*2, 0)  
-            player_right.update_score()
+            player_left.update_score()
             board.score_boxes[1].set_value(player_right.score)
 
         # Cek utk menentukan pantulan bola
