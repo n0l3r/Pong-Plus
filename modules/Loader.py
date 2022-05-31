@@ -15,12 +15,12 @@ class Loader:
             "play_menu": Menu.Play()
         }
 
-    def load_game(self, difficulty,  ball_img = pygame.image.load("assets/game_board/Ball-React.png")):
+    def load_game(self, ball_speed,  ball_img = pygame.image.load("assets/game_board/Ball-React.png")):
         return {
             "board" : Board(),
             "paddle_left" : Paddle(0, 7),
             "paddle_right" : Paddle(1, 7),
-            "ball" : Ball(ball_img, 545, 300, (difficulty + 1)*2, int(random.choice([0, 180]))),
+            "ball" : Ball(ball_img, 545, 300, ball_speed, int(random.choice([0, 180]))),
             "player_left" : Player(0),
             "player_right" : Player(1),
             "game_music": pygame.mixer.Sound("assets/sounds/play_board.wav")

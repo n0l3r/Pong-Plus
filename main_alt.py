@@ -1,7 +1,9 @@
 # Modules
 import pygame
+import random
 from modules import Menu
 from modules import Board
+from modules import PowerUp
 from modules.Paddle import Paddle
 from modules.Ball import Ball
 from modules.Player import Player
@@ -22,6 +24,7 @@ pygame.display.set_icon(icon)
 loader = Loader()
 menu_dict = loader.load_menu()
 game_dict = {}
+items_list = [PowerUp.SpeedUp, PowerUp.Striketrough, PowerUp.Expand, PowerUp.Shrink]
 
 
 # Menu loop
@@ -52,9 +55,44 @@ def pause_loop():
     pass
 
 
+# Summon PowerUp acak pada koordinat acak
+def summon_item(active_items_list):
+    item_idx = random.randint(0, 3)
+    rand_x = random.randint(445, 645)
+    rand_y = random.randint(100, 501)
+    active_items_list.append(items_list[item_idx](rand_x, rand_y))
+
+
+# Mengurus rendering PowerUp dan check collision dengan bola
+def item_handler(active_items_list, screen, ball, paddle_right, paddle_left):
+    new_list = []
+
+    for item in active_items_list:
+        item.render(screen)
+
+        if ball.rect.colliderect(item.rect):
+            if item.item_id == 0 or item.item_id == 1:
+                # print("speed-up" if item.item_id == 0 else "striketrough")
+                item.give_effect(ball)
+
+            if item.item_id == 2:
+                # print("expand")
+                item.give_effect(paddle_left if ball.vec_x > 0 else paddle_right)
+
+            if item.item_id == 3:
+                # print("shrink")
+                item.give_effect(paddle_left if ball.vec_x < 0 else paddle_right)
+
+        else:
+            new_list.append(item)
+    
+    return new_list # Kembalikan list baru yang berisi item yang belum ditabrak bola
+
+
 # Gameplay loop
 def game_loop(difficulty, max_score):
-    game_dict = loader.load_game(difficulty)
+    BALL_BASE_SPEED = (difficulty + 1)*2
+    game_dict = loader.load_game(BALL_BASE_SPEED)
 
     board = game_dict["board"]
     ball = game_dict["ball"]
@@ -62,6 +100,9 @@ def game_loop(difficulty, max_score):
     paddle_right = game_dict["paddle_right"]
     player_left = game_dict["player_left"]
     player_right = game_dict["player_right"]
+    
+    active_item_list = []
+    can_summon_item = False
 
     # Reset screen
     screen.fill((0,0,0))
@@ -73,6 +114,8 @@ def game_loop(difficulty, max_score):
 
     # Screen baru untuk game
     game_screen = pygame.Surface([1091,601], pygame.SRCALPHA, 32).convert_alpha()
+    game_dict["game_music"].set_volume(0.1)
+    game_dict["game_music"].play(-1)
 
     while True:
         for event in pygame.event.get():
@@ -97,6 +140,25 @@ def game_loop(difficulty, max_score):
         paddle_left.render(game_screen)
         paddle_right.render(game_screen)
         ball.render(game_screen)
+
+        # Summon item setiap 5 detik
+        current_time = pygame.time.get_ticks() - board.timer.start_time
+        summon_interval = 5000
+
+        if current_time % summon_interval > 2000 and current_time > 1000:
+            can_summon_item = True
+
+        if can_summon_item and current_time % summon_interval < 1000 and len(active_item_list) <= 3:
+            summon_item(active_item_list)
+            can_summon_item = False
+
+        # Tampilkan Item, cek collision dengan bola, dan perbarui list item aktif jika collision terjadi
+        active_item_list = item_handler(active_item_list, game_screen, ball, paddle_right, paddle_left)
+
+        # Jalankan efek item/powerup
+        paddle_left.handle_modifiers()
+        paddle_right.handle_modifiers()
+        ball.handle_modifiers()
                 
         # Reset bola jika skor didapatkan
         if ball.rect.centerx < 0:
@@ -121,7 +183,7 @@ def game_loop(difficulty, max_score):
 
 
 # Page pemenang game
-def winner_loop():
+def winner_page():
     pass
 
 

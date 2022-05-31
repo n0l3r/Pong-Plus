@@ -1,6 +1,7 @@
-import pygame, abc
+import pygame
+from abc import ABC, abstractmethod
 
-class GameObject(abc.ABC):
+class GameObject(ABC):
     """
     Abstract Class untuk semua in-game object.
     Constructor mengambil satu argumen yaitu rect (pygame.Rect) dari objeknya
@@ -25,9 +26,21 @@ class GameObject(abc.ABC):
         # self.all_objects.append(self)
         
         # Modifiers for effects
-        self.modifiers = []
+        self.modifiers_timer = {
+            "shrink" : {"start" : 0, "end" : 0}, 
+            "expand" : {"start" : 0, "end" : 0}, 
+            "speed_up" : {"start" : 0, "end" : 0}, 
+            "striketrough" : {"start" : 0, "end" : 0}
+        }
+        
+        self.modifiers_active = {
+            "shrink" : False, 
+            "expand" : False, 
+            "speed_up" : False, 
+            "striketrough" : False
+        }
 
-    @abc.abstractmethod
+    @abstractmethod
     def render(self, screen):
         pass
     
@@ -72,27 +85,28 @@ class GameObject(abc.ABC):
         self.rect.height = int(self._height)
 
 
-    # Modifiers tags (name) untuk pengecekan modfier =======================
-    @property
-    def modifier_tags(self):
-        return list(i["name"] for i in self.modifiers)
+    # Modifiers tags (name) untuk pengecekan modfier =====================================
+    def add_modifier(self, modifier):
+        # Set modifier to active
+        if not self.check_modifier(modifier["name"]):
+            self.modifiers_active[modifier["name"]] = True
+
+        # Reset time
+        current_time = pygame.time.get_ticks()//1000
+        self.modifiers_timer[modifier["name"]]["start"] = current_time
+        self.modifiers_timer[modifier["name"]]["end"] = modifier["duration"] + current_time
 
 
-    def add_modifiers(self, modifier):
-        # If already have the modifiers, reset time
-        if modifier["name"] in self.modifier_tags:
-            self.modifiers[self.modifiers.index(modifier)]["duration"] = 15
-        # else, add the modifiers
-        else:
-            self.modifiers.append(modifier)
-
-
-    def remove_modifiers(self, modifier):
-        if modifier["name"] in self.modifier_tags:
-            self.modifiers.pop(self.modifiers.index(modifier))
+    def remove_modifier(self, modifier_tag:str):
+        if self.check_modifier(modifier_tag):
+            self.modifiers_active[modifier_tag] = False
 
 
     def check_modifier(self, modifier_tag:str):
-        """Periksa jika bola memiliki modifier yang ditentukan."""
-        return modifier_tag in self.modifier_tags
-    # ======================================================================
+        # Periksa jika objek memiliki modifier yang ditentukan
+        return self.modifiers_active[modifier_tag]
+
+
+    def handle_modifiers(self):
+        pass
+    # =====================================================================================

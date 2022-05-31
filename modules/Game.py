@@ -1,10 +1,13 @@
 import pygame, sys
+import random
 from modules import Menu
+from modules import PowerUp
 from modules.Paddle import Paddle
 from modules.Ball import Ball
 from modules.Player import Player
 from modules.Loader import Loader
 from modules.Board import Board
+
 
 
 class Game:
@@ -17,6 +20,8 @@ class Game:
         self.game_dict = {}
         self.difficulty = 0
         self.max_score = 0
+
+        self.items_list = [PowerUp.SpeedUp, PowerUp.Striketrough, PowerUp.Expand, PowerUp.Shrink]
 
 
     # Main loop utk sementara
@@ -33,10 +38,45 @@ class Game:
             if current_loop == "<exit>":
                 return
 
+    
+    # Summon PowerUp acak pada koordinat acak
+    def summon_item(self, active_items_list):
+        item_idx = random.randint(0, 3)
+        rand_x = random.randint(445, 645)
+        rand_y = random.randint(100, 501)
+        active_items_list.append(self.items_list[item_idx](rand_x, rand_y))
+
+
+    # Mengurus rendering PowerUp dan check collision dengan bola
+    def item_handler(self, active_items_list, screen, ball, paddle_right, paddle_left):
+        new_list = []
+
+        for item in active_items_list:
+            item.render(screen)
+            
+            # Jika bola menabrak rect item, aktifkan efek item, setiap efek punya durasi 5 detik
+            if ball.rect.colliderect(item.rect):
+                if item.item_id == 0 or item.item_id == 1:
+                    # print("speed-up" if item.item_id == 0 else "striketrough")
+                    item.give_effect(ball)
+
+                if item.item_id == 2:
+                    # print("expand")
+                    item.give_effect(paddle_left if ball.vec_x > 0 else paddle_right)
+
+                if item.item_id == 3:
+                    # print("shrink")
+                    item.give_effect(paddle_left if ball.vec_x < 0 else paddle_right)
+
+            else:
+                new_list.append(item)
+        
+        return new_list # Kembalikan list baru yang berisi item yang belum ditabrak bola
+
 
     # Game loop
     def __game_cycle(self):
-        BALL_BASE_SPEED = (self.difficulty + 1)*2 + 5
+        BALL_BASE_SPEED = (self.difficulty + 1)*2
         self.game_dict = self.loader.load_game(BALL_BASE_SPEED)
 
         board = self.game_dict["board"]
@@ -45,6 +85,9 @@ class Game:
         paddle_right = self.game_dict["paddle_right"]
         player_left = self.game_dict["player_left"]
         player_right = self.game_dict["player_right"]
+
+        active_item_list = []
+        can_summon_item = False
 
         # Reset screen
         self.screen.fill((0,0,0))
@@ -56,38 +99,17 @@ class Game:
 
         # Screen baru untuk game
         game_screen = pygame.Surface([1091,601], pygame.SRCALPHA, 32).convert_alpha()
-        self.game_dict["game_music"] = pygame.mixer.Sound()
-        self.game_dict["game_music"].set_volume(0.5)
+        self.game_dict["game_music"].set_volume(0.1)
         self.game_dict["game_music"].play(-1)
+
         # game loop
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "<exit>"
 
-                # Check Keydown
-                if event.type == pygame.KEYDOWN:
-                    # Kontrol paddle kiri
-                    if event.key == pygame.K_w:
-                        paddle_left.go_up()
-                    elif event.key == pygame.K_s:
-                        paddle_left.go_down()
-
-                    # Kontrol paddle kanan
-                    if event.key == pygame.K_UP:
-                        paddle_right.go_up()
-                    elif event.key == pygame.K_DOWN:
-                        paddle_right.go_down()
-
-                # Check keyup
-                if event.type == pygame.KEYUP:
-                    # Kontrol paddle kiri
-                    if event.key == pygame.K_w or event.key == pygame.K_s:
-                        paddle_left.stop()
-                        
-                    # Kontrol paddle kiri
-                    if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
-                        paddle_right.stop()
+                paddle_left.control(event)
+                paddle_right.control(event)
 
             # Reset screen / render score
             game_screen.fill(pygame.Color(0,0,0,0))
@@ -104,15 +126,34 @@ class Game:
             paddle_left.render(game_screen)
             paddle_right.render(game_screen)
             ball.render(game_screen)
+
+            # Summon item setiap 5 detik
+            current_time = pygame.time.get_ticks() - board.timer.start_time
+            summon_interval = 5000
+
+            if current_time % summon_interval > 2000 and current_time > 1000:
+                can_summon_item = True
+
+            if can_summon_item and current_time % summon_interval < 1000 and len(active_item_list) <= 3:
+                self.summon_item(active_item_list)
+                can_summon_item = False
+
+            # Tampilkan Item, cek collision dengan bola, dan perbarui list item aktif jika collision terjadi
+            active_item_list = self.item_handler(active_item_list, game_screen, ball, paddle_right, paddle_left)
+
+            # Handler untuk modifier objek game, mengurus aktifasi/deaktifasi efek PowerUp
+            paddle_left.handle_modifiers()
+            paddle_right.handle_modifiers()
+            ball.handle_modifiers()
                     
             # Reset bola jika skor didapatkan
             if ball.rect.centerx < 0:
-                ball = Ball(ball.image, 545, 300, BALL_BASE_SPEED, 180)
-                player_left.update_score()
+                ball = Ball(ball.image, 545, 300, (self.difficulty + 1)*2, 180)
+                player_right.update_score()
                 board.score_boxes[1].set_value(player_right.score)
 
             if ball.rect.centerx > 1096:
-                ball = Ball(ball.image, 545, 300, BALL_BASE_SPEED, 0)  
+                ball = Ball(ball.image, 545, 300, (self.difficulty + 1)*2, 0)  
                 player_right.update_score()
                 board.score_boxes[1].set_value(player_right.score)
 
@@ -124,8 +165,8 @@ class Game:
             self.clock.tick(self.FPS)
 
             # Sementara exit setelah menang (Nanti diubah ketika halaman pemenang sudah dibuat)
-            # if player_left.score >= self.max_score or player_right.score >= self.max_score:
-            #     return "<exit>"
+            if player_left.score >= self.max_score or player_right.score >= self.max_score:
+                return "<exit>"
 
 
     # Pause loop

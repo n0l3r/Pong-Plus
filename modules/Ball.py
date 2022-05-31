@@ -13,32 +13,24 @@ class Ball(GameObject):
 
         super().__init__(pygame.rect.Rect(0, 0, self.size, self.size))
 
+        self.speed_multiplier = 1
         self.speed = speed
         self.vec_x = speed*cos(radians(angle))
         self.vec_y = speed*sin(radians(angle))
         self.x = x - self.size/2
         self.y = y - self.size/2
-        
-        # self.modifiers = [{"name":"striketrough", "duration":15}]
-        # self.modifiers = [{"name":"speed_up", "duration":15}]
-        # self.modifiers = [{"name":"striketrough", "duration":15}, {"name":"speed_up", "duration":15}]
+
 
     def move(self):
-        mult = 1
-        
-        if self.check_modifier("speed_up"):
-            # 30% Speed Up
-            # harusnya 30% tpi jadi 50% biar keliatana ngebutnye
-            mult = 1.5
-
-        self.x += self.vec_x * mult
-        self.y += self.vec_y * mult
+        self.x += self.vec_x * self.speed_multiplier
+        self.y += self.vec_y * self.speed_multiplier
 
 
     def bounce(self, with_paddle:bool, paddle:Paddle = None):
         if not with_paddle: # Jika bola collide dengan wall, bukan dengan paddle
             if self.check_modifier("striketrough"):
-                self.y = 601 if self.vec_y < 0 else 25
+                self.y = 549 if self.vec_y < 0 else 1
+
             else:
                 self.vec_y *= -1
                 self.move()
@@ -85,8 +77,26 @@ class Ball(GameObject):
         # Cek collision bola dengan paddle
         if self.rect.colliderect(left_paddle.rect):
             self.bounce(1, left_paddle)
+
         elif self.rect.colliderect(right_paddle.rect):
             self.bounce(1, right_paddle)
+
+    
+    # Mengatur aktifasi/deaktifasi efek PowerUp objek
+    def handle_modifiers(self):
+        current_time = pygame.time.get_ticks()//1000
+
+        if self.check_modifier("speed_up"):
+            if current_time > self.modifiers_timer["speed_up"]["end"]:
+                self.speed_multiplier = 1
+                self.remove_modifier("speed_up")
+
+            elif self.speed_multiplier != 1.5:
+                self.speed_multiplier = 1.5
+
+        if self.check_modifier("striketrough"):
+            if current_time > self.modifiers_timer["striketrough"]["end"]:
+                self.remove_modifier("striketrough")
 
 
     def render(self, screen):
