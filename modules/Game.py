@@ -155,7 +155,7 @@ class Game:
             if ball.rect.centerx > 1096:
                 ball = Ball(ball.image, 545, 300, (self.difficulty + 1)*2, 0)  
                 player_left.update_score()
-                board.score_boxes[1].set_value(player_right.score)
+                board.score_boxes[1].set_value(player_left.score)
 
             # Cek utk menentukan pantulan bola
             ball.bounce_check(0, 601, paddle_left, paddle_right)
