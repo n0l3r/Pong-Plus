@@ -20,17 +20,31 @@ class Paddle(GameObject):
 
         # self.modifiers = [{"name":"shrink", "duration":15}]
         # self.modifiers = [{"name":"expand", "duration":15}]
-    
-    def go_up(self):
-        self.speed = -self.base_speed
 
 
-    def go_down(self):
-        self.speed = self.base_speed
+    # Control gerakan paddle berdasarkan event
+    def control(self, event):
+        key_control = []
 
+        if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+            key_control = [
+                [event.key == pygame.K_w, event.key == pygame.K_s], # Kontrol paddle kiri
+                [event.key == pygame.K_UP, event.key == pygame.K_DOWN] # Kontrol paddle kanan
+            ]
 
-    def stop(self):
-        self.speed = 0
+        # Check Keydown
+        if event.type == pygame.KEYDOWN:
+            # Mulai gerakan paddle
+            if key_control[self.side][0]:
+                self.speed = -self.base_speed # Ubah arah gerak keatas
+            elif key_control[self.side][1]: 
+                self.speed = self.base_speed # Ubah arah gerak kebawah
+        
+        # Check keyup
+        if event.type == pygame.KEYUP:
+            # Stop gerakan paddle
+            if key_control[self.side][0] or key_control[self.side][1]:
+                self.speed = 0 # Hentikan gerak
 
 
     def move(self, top_boundary, bottom_boundary):

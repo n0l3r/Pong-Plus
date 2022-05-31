@@ -38,14 +38,10 @@ class Ball(GameObject):
     def bounce(self, with_paddle:bool, paddle:Paddle = None):
         if not with_paddle: # Jika bola collide dengan wall, bukan dengan paddle
             if self.check_modifier("striketrough"):
-                # Jika bola keatas
-                if self.vec_y < 0:
-                    self.y = 601 # Bottom of board
-                # Jika bola kebawah
-                else:
-                    self.y = 0 - self.rect.height
+                self.y = 601 if self.vec_y < 0 else 25
             else:
                 self.vec_y *= -1
+                self.move()
         
         else: # Arah pantulan bola bervariasi berdasarkan jarak bola dari titik tengah paddle
             height_diff = self.rect.centery - paddle.rect.centery

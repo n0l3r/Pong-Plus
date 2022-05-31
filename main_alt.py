@@ -79,29 +79,8 @@ def game_loop(difficulty, max_score):
             if event.type == pygame.QUIT:
                 return "<exit>"
 
-            # Check Keydown
-            if event.type == pygame.KEYDOWN:
-                # Kontrol paddle kiri
-                if event.key == pygame.K_w:
-                    paddle_left.go_up()
-                elif event.key == pygame.K_s:
-                    paddle_left.go_down()
-
-                # Kontrol paddle kanan
-                if event.key == pygame.K_UP:
-                    paddle_right.go_up()
-                elif event.key == pygame.K_DOWN:
-                    paddle_right.go_down()
-
-            # Check keyup
-            if event.type == pygame.KEYUP:
-                # Kontrol paddle kiri
-                if event.key == pygame.K_w or event.key == pygame.K_s:
-                    paddle_left.stop()
-                    
-                # Kontrol paddle kiri
-                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
-                    paddle_right.stop()
+            paddle_left.control(event)
+            paddle_right.control(event)
 
         # Reset screen / render score
         game_screen.fill(pygame.Color(0,0,0,0))
