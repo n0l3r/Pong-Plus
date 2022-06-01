@@ -65,8 +65,8 @@ class Paddle(GameObject):
     # Mengatur aktifasi/deaktifasi efek PowerUp objek
     def handle_modifiers(self):
         current_time = pygame.time.get_ticks()//1000
-        expand_len = 40
-        shrink_len = 40
+        expand_len = 50
+        shrink_len = 50
 
         if self.check_modifier("expand"):
             if current_time > self.modifiers_timer["expand"]["end"]:
@@ -84,11 +84,11 @@ class Paddle(GameObject):
                 self.height = PADDLE_BASE_HEIGHT
                 self.image = pygame.transform.scale(self.image,[50, self.height + 30])
                 self.remove_modifier("shrink")
-                self.remove_modifier("expand")
             
             elif self.height != PADDLE_BASE_HEIGHT - shrink_len:
                 self.height = PADDLE_BASE_HEIGHT - shrink_len
                 self.image = pygame.transform.scale(self.image,[50, self.height + 30])
+                self.remove_modifier("expand")
 
 
     # Render function
