@@ -65,25 +65,29 @@ class Paddle(GameObject):
     # Mengatur aktifasi/deaktifasi efek PowerUp objek
     def handle_modifiers(self):
         current_time = pygame.time.get_ticks()//1000
+        expand_len = 40
+        shrink_len = 40
 
         if self.check_modifier("expand"):
             if current_time > self.modifiers_timer["expand"]["end"]:
                 self.height = PADDLE_BASE_HEIGHT
                 self.image = pygame.transform.scale(self.image,[50, self.height + 30])
-                self.modifiers_active["expand"] = False
+                self.remove_modifier("expand")
 
-            elif self.height != PADDLE_BASE_HEIGHT + 40:
-                self.height = PADDLE_BASE_HEIGHT + 40
+            elif self.height != PADDLE_BASE_HEIGHT + expand_len:
+                self.height = PADDLE_BASE_HEIGHT + expand_len
                 self.image = pygame.transform.scale(self.image,[50, self.height + 30])
+                self.remove_modifier("shrink")
 
         if self.check_modifier("shrink"):
             if current_time > self.modifiers_timer["shrink"]["end"]:
                 self.height = PADDLE_BASE_HEIGHT
                 self.image = pygame.transform.scale(self.image,[50, self.height + 30])
-                self.modifiers_active["shrink"] = False
+                self.remove_modifier("shrink")
+                self.remove_modifier("expand")
             
-            elif self.height != PADDLE_BASE_HEIGHT - 40:
-                self.height = PADDLE_BASE_HEIGHT - 40
+            elif self.height != PADDLE_BASE_HEIGHT - shrink_len:
+                self.height = PADDLE_BASE_HEIGHT - shrink_len
                 self.image = pygame.transform.scale(self.image,[50, self.height + 30])
 
 

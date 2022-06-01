@@ -39,12 +39,21 @@ class Game:
                 return
 
     
-    # Summon PowerUp acak pada koordinat acak
-    def summon_item(self, active_items_list):
+    # Spawn PowerUp acak pada koordinat acak
+    def spawn_item(self, active_items_list):
         item_idx = random.randint(0, 3)
-        rand_x = random.randint(445, 645)
-        rand_y = random.randint(100, 501)
-        active_items_list.append(self.items_list[item_idx](rand_x, rand_y))
+        item_rnd = self.items_list[item_idx](random.randint(445, 645), random.randint(100, 501))
+
+        while True:
+            for i in active_items_list:
+                if(item_rnd.rect.colliderect(i.rect)):
+                    item_rnd.x = random.randint(445, 645)
+                    item_rnd.y = random.randint(100, 501)
+                    break
+            else:
+                break
+
+        active_items_list.append(item_rnd)
 
 
     # Mengurus rendering PowerUp dan check collision dengan bola
@@ -87,7 +96,7 @@ class Game:
         player_right = self.game_dict["player_right"]
 
         active_item_list = []
-        can_summon_item = False
+        can_spawn_item = False
 
         # Reset screen
         self.screen.fill((0,0,0))
@@ -132,11 +141,11 @@ class Game:
             summon_interval = 5000
 
             if current_time % summon_interval > 2000 and current_time > 1000:
-                can_summon_item = True
+                can_spawn_item = True
 
-            if can_summon_item and current_time % summon_interval < 1000 and len(active_item_list) <= 3:
-                self.summon_item(active_item_list)
-                can_summon_item = False
+            if can_spawn_item and current_time % summon_interval < 1000 and len(active_item_list) <= 3:
+                self.spawn_item(active_item_list)
+                can_spawn_item = False
 
             # Tampilkan Item, cek collision dengan bola, dan perbarui list item aktif jika collision terjadi
             active_item_list = self.item_handler(active_item_list, game_screen, ball, paddle_right, paddle_left)

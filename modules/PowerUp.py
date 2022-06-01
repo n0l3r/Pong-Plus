@@ -12,6 +12,9 @@ class PowerUp(GameObject):
         self.image = image
         self.image = pygame.transform.scale(image, [self.size, self.size])
 
+        self.item_hit_sound = pygame.mixer.Sound("assets/sounds/get_item.wav")
+        self.item_hit_sound.set_volume(0.05)
+
         super().__init__(self.rect, True, True)
 
     @abstractmethod
@@ -34,6 +37,8 @@ class SpeedUp(PowerUp):
             "duration": 5
         })
 
+        self.item_hit_sound.play()
+
 
 class Striketrough(PowerUp):
     def __init__(self, x, y) -> None:
@@ -45,6 +50,8 @@ class Striketrough(PowerUp):
             "name": "striketrough",
             "duration": 5
         })
+
+        self.item_hit_sound.play()
 
 
 class Expand(PowerUp):
@@ -58,6 +65,8 @@ class Expand(PowerUp):
             "duration": 5
         })
 
+        self.item_hit_sound.play()
+
 
 class Shrink(PowerUp):
     def __init__(self, x, y) -> None:
@@ -69,3 +78,5 @@ class Shrink(PowerUp):
             "name": "shrink",
             "duration": 5
         })
+
+        self.item_hit_sound.play()

@@ -56,11 +56,20 @@ def pause_loop():
 
 
 # Summon PowerUp acak pada koordinat acak
-def summon_item(active_items_list):
+def spawn_item(active_items_list):
     item_idx = random.randint(0, 3)
-    rand_x = random.randint(445, 645)
-    rand_y = random.randint(100, 501)
-    active_items_list.append(items_list[item_idx](rand_x, rand_y))
+    item_rnd = items_list[item_idx](random.randint(445, 645), random.randint(100, 501))
+
+    while True:
+        for i in active_items_list:
+            if(item_rnd.rect.colliderect(i.rect)):
+                item_rnd.x = random.randint(445, 645)
+                item_rnd.y = random.randint(100, 501)
+                break
+        else:
+            break
+
+    active_items_list.append(item_rnd)
 
 
 # Mengurus rendering PowerUp dan check collision dengan bola
@@ -71,16 +80,13 @@ def item_handler(active_items_list, screen, ball, paddle_right, paddle_left):
         item.render(screen)
 
         if ball.rect.colliderect(item.rect):
-            if item.item_id == 0 or item.item_id == 1:
-                # print("speed-up" if item.item_id == 0 else "striketrough")
+            if item.item_id == 0 or item.item_id == 1: # speed_up / striketrough
                 item.give_effect(ball)
 
-            if item.item_id == 2:
-                # print("expand")
+            if item.item_id == 2: # expand
                 item.give_effect(paddle_left if ball.vec_x > 0 else paddle_right)
 
-            if item.item_id == 3:
-                # print("shrink")
+            if item.item_id == 3: # shrink
                 item.give_effect(paddle_left if ball.vec_x < 0 else paddle_right)
 
         else:
@@ -102,7 +108,7 @@ def game_loop(difficulty, max_score):
     player_right = game_dict["player_right"]
     
     active_item_list = []
-    can_summon_item = False
+    can_spawn_item = False
 
     # Reset screen
     screen.fill((0,0,0))
@@ -146,11 +152,11 @@ def game_loop(difficulty, max_score):
         summon_interval = 5000
 
         if current_time % summon_interval > 2000 and current_time > 1000:
-            can_summon_item = True
+            can_spawn_item = True
 
-        if can_summon_item and current_time % summon_interval < 1000 and len(active_item_list) <= 3:
-            summon_item(active_item_list)
-            can_summon_item = False
+        if can_spawn_item and current_time % summon_interval < 1000 and len(active_item_list) <= 3:
+            spawn_item(active_item_list)
+            can_spawn_item = False
 
         # Tampilkan Item, cek collision dengan bola, dan perbarui list item aktif jika collision terjadi
         active_item_list = item_handler(active_item_list, game_screen, ball, paddle_right, paddle_left)
