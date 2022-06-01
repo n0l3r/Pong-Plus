@@ -14,7 +14,7 @@ class Game:
     def __init__(self, screen:pygame.Surface, clock:pygame.time.Clock) -> None:
         self.screen = screen
         self.clock = clock
-        self.FPS = 120
+        self.FPS = 240
         self.loader = Loader()
         self.menu_dict = {}
         self.game_dict = {}
@@ -171,7 +171,7 @@ class Game:
 
             self.screen.blit(game_screen, [board.x + 30, board.y + 30])
             pygame.display.update([board.x, 0, board.width + 55, 720])
-            # self.clock.tick(self.FPS)
+            self.clock.tick(self.FPS)
 
             # Sementara exit setelah menang (Nanti diubah ketika halaman pemenang sudah dibuat)
             if player_left.score >= self.max_score or player_right.score >= self.max_score:
