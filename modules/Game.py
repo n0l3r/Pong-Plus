@@ -224,4 +224,38 @@ class Game:
 
     # Halaman pemenang
     def __winner_page(self):
-        pass
+        player_left = self.game_dict["player_left"]
+        player_right = self.game_dict["player_right"]
+
+        winner_page = pygame.image.load("assets/images/winner_page.png")
+        player_win = pygame.image.load("assets/images/winner_player1.png") if player_left.score > player_right.score else pygame.image.load("assets/images/winner_player2.png")
+        back_img = pygame.image.load("assets/button/mainmenu_btn.png")
+        playagain_img = pygame.image.load("assets/button/playagain_btn.png")
+
+        playagain_btn = Button(image=playagain_img, pos=(505, 477))
+        mainmenu_btn = Button(image=back_img, pos=(505, 542))
+
+        # Loop
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    # Button clicks
+                    if playagain_btn.check(pygame.mouse.get_pos()):
+                        player_left.reset_score()
+                        player_right.reset_score()
+                        return "<in-game>"
+
+                    if mainmenu_btn.check(pygame.mouse.get_pos()):
+                        return "menu"
+
+            # Render winner page
+            self.screen.blit(winner_page, [0, 0])
+            self.screen.blit(player_win, (351, 277))
+            playagain_btn.render(self.screen)
+            mainmenu_btn.render(self.screen)
+
+            pygame.display.update()
+            self.clock.tick(self.FPS)
