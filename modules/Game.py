@@ -1,3 +1,4 @@
+
 import pygame, sys
 import random
 from modules import Menu
@@ -126,9 +127,9 @@ class Game:
                 if event.type == pygame.QUIT:
                     return "<exit>"
 
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if event.type == pygame.KEYDOWN:
                     # Button clicks
-                    if pause_btn.check(pygame.mouse.get_pos()):
+                    if event.key == pygame.K_ESCAPE:
                         self.__pause_cycle()
 
 
@@ -173,15 +174,20 @@ class Game:
             paddle_right.handle_modifiers()
             ball.handle_modifiers()
                     
+
+
+
             # Reset bola jika skor didapatkan
             if ball.rect.centerx < 0:
                 ball = Ball(ball.image, 545, 300, (self.difficulty + 1)*2, 180)
                 player_right.update_score()
+                active_item_list = []
                 board.score_boxes[1].set_value(player_right.score)
 
             if ball.rect.centerx > 1096:
                 ball = Ball(ball.image, 545, 300, (self.difficulty + 1)*2, 0)  
                 player_left.update_score()
+                active_item_list = []
                 board.score_boxes[0].set_value(player_left.score)
 
             # Cek utk menentukan pantulan bola
@@ -224,6 +230,11 @@ class Game:
                     if quit_btn.check(pygame.mouse.get_pos()):
                         pygame.quit()
                         sys.exit()
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pause = False
+                        break
 
             continue_btn.render(self.screen)
             quit_btn.render(self.screen)
