@@ -10,7 +10,7 @@ class Paddle(GameObject):
         self.side = side # 0 = kiri, 1 = kanan
         # Rect paddle
         super().__init__(pygame.rect.Rect(0, 0, 20, PADDLE_BASE_HEIGHT))
-        self.image = pygame.image.load("assets/game_board/Paddle-Template.png")
+        self.image = pygame.image.load("assets/game_board/paddle_template.png")
         self.image = pygame.transform.scale(self.image,[50, 200])
 
         self.x = (1041 if side else 30)
