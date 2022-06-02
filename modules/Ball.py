@@ -19,11 +19,13 @@ class Ball(GameObject):
         self.vec_y = speed*sin(radians(angle))
         self.x = x - self.size/2
         self.y = y - self.size/2
+        self.angle = 0
 
 
     def move(self):
         self.x += self.vec_x * self.speed_multiplier
         self.y += self.vec_y * self.speed_multiplier
+
 
 
     def bounce(self, with_paddle:bool, paddle:Paddle = None):
@@ -100,6 +102,8 @@ class Ball(GameObject):
 
 
     def render(self, screen):
-        screen.blit(self.image, (self.x - BALL_NEON, self.y - BALL_NEON))
+        self.angle += 0.05
+        ball_img = pygame.transform.rotate(self.image, self.angle)
+        screen.blit(ball_img, ((self.x - BALL_NEON), self.y - BALL_NEON))
         # pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
         
