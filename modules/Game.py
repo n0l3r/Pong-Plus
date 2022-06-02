@@ -7,6 +7,7 @@ from modules.Ball import Ball
 from modules.Player import Player
 from modules.Loader import Loader
 from modules.Board import Board
+from modules.Button import Button
 
 
 
@@ -34,6 +35,9 @@ class Game:
 
             if current_loop == "<in-game>":
                 current_loop = self.__game_cycle()
+
+            if current_loop == "<winner>":
+                current_loop = self.__winner_page()
 
             if current_loop == "<exit>":
                 return
@@ -175,7 +179,8 @@ class Game:
 
             # Sementara exit setelah menang (Nanti diubah ketika halaman pemenang sudah dibuat)
             if player_left.score >= self.max_score or player_right.score >= self.max_score:
-                return "<exit>"
+                self.game_dict["game_music"].stop()
+                return "<winner>"
 
 
     # Pause loop
