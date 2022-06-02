@@ -29,7 +29,7 @@ class PowerUp(GameObject):
 class SpeedUp(PowerUp):
     def __init__(self, x, y) -> None:
         self.item_id = 0
-        super().__init__(x, y, pygame.image.load("assets/game_board/Item-SpeedUp.png"))
+        super().__init__(x, y, pygame.image.load("assets/game_board/item_speedup.png"))
 
     def give_effect(self, ball):
         ball.add_modifier({
@@ -43,7 +43,7 @@ class SpeedUp(PowerUp):
 class Striketrough(PowerUp):
     def __init__(self, x, y) -> None:
         self.item_id = 1
-        super().__init__(x, y, pygame.image.load("assets/game_board/Item-Striketrough.png"))
+        super().__init__(x, y, pygame.image.load("assets/game_board/item_striketrough.png"))
 
     def give_effect(self, ball):
         ball.add_modifier({
@@ -57,7 +57,7 @@ class Striketrough(PowerUp):
 class Expand(PowerUp):
     def __init__(self, x, y) -> None:
         self.item_id = 2
-        super().__init__(x, y, pygame.image.load("assets/game_board/Item-Expand.png"))
+        super().__init__(x, y, pygame.image.load("assets/game_board/item_expand.png"))
 
     def give_effect(self, paddle):
         paddle.add_modifier({
@@ -71,7 +71,7 @@ class Expand(PowerUp):
 class Shrink(PowerUp):
     def __init__(self, x, y) -> None:
         self.item_id = 3
-        super().__init__(x, y, pygame.image.load("assets/game_board/Item-Shrink.png"))
+        super().__init__(x, y, pygame.image.load("assets/game_board/item_shrink.png"))
 
     def give_effect(self, paddle):
         paddle.add_modifier({
