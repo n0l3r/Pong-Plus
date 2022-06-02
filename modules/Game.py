@@ -1,4 +1,3 @@
-from matplotlib.pyplot import pause
 import pygame, sys
 import random
 from modules import Menu
