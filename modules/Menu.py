@@ -16,7 +16,7 @@ class Menu(ABC):
 
         # Logo dijadikan atribut kelas parent
         self.logo_pbb = pygame.image.load("assets/images/logo_pbb.png")
-        self.logo_img = pygame.image.load("assets/images/Pong_Logo.png")
+        self.logo_img = pygame.image.load("assets/images/pong_logo.png")
         
 
     @abstractmethod
@@ -118,7 +118,7 @@ class Play(Menu):
         score_img.set_alpha(255)
         screen.blit(score_img, (494, 422))
 
-        score_font = pygame.font.Font("assets/font/Montserrat-Regular.ttf", 32)
+        score_font = pygame.font.Font("assets/font/montserrat_regular.ttf", 32)
         score_text = score_font.render(str(self.max_score), True, (255, 255, 255), None)
         screen.blit(score_text, (660, 430))
         
