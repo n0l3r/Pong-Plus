@@ -101,9 +101,8 @@ class Game:
         player_right = self.game_dict["player_right"]
 
         # Button Pause
-        pause_img = pygame.image.load("assets/button/continue_btn.png")
-        pause_btn = Button(pause_img, (1100, 3))
-        
+        # pause_img = pygame.image.load("assets/button/continue_btn.png")
+        # pause_btn = Button(pause_img, (1100, 3))     
 
         active_item_list = []
         can_spawn_item = False
@@ -148,7 +147,7 @@ class Game:
             ball.move()
 
             # Render Button Pause
-            pause_btn.render(self.screen)
+            # pause_btn.render(self.screen)
 
             # Render objek game
             paddle_left.render(game_screen)
@@ -173,9 +172,6 @@ class Game:
             paddle_left.handle_modifiers()
             paddle_right.handle_modifiers()
             ball.handle_modifiers()
-                    
-
-
 
             # Reset bola jika skor didapatkan
             if ball.rect.centerx < 0:

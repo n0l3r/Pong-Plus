@@ -104,6 +104,9 @@ class Ball(GameObject):
     def render(self, screen):
         self.angle += 0.05
         ball_img = pygame.transform.rotate(self.image, self.angle)
-        screen.blit(ball_img, ((self.x - BALL_NEON), self.y - BALL_NEON))
-        # pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
+        img_rect = ball_img.get_rect(center = self.rect.center)
+
+        screen.blit(ball_img, img_rect)
+        # screen.blit(ball_img, ((self.x - BALL_NEON), self.y - BALL_NEON))
+        pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
         
