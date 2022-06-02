@@ -5,3 +5,6 @@ class Player:
 
     def update_score(self):
         self.score += 1
+
+    def reset_score(self):
+        self.score = 0
