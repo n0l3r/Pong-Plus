@@ -13,38 +13,27 @@ class Ball(GameObject):
 
         super().__init__(pygame.rect.Rect(0, 0, self.size, self.size))
 
+        self.speed_multiplier = 1
         self.speed = speed
         self.vec_x = speed*cos(radians(angle))
         self.vec_y = speed*sin(radians(angle))
         self.x = x - self.size/2
         self.y = y - self.size/2
-        
-        self.modifiers = []
-        # self.modifiers = [{"name":"striketrough", "duration":15}]
-        # self.modifiers = [{"name":"speed_up", "duration":15}]
-        # self.modifiers = [{"name":"striketrough", "duration":15}, {"name":"speed_up", "duration":15}]
+
 
     def move(self):
-        mult = 1
-        if self.check_modifier("speed_up"):
-            # 30% Speed Up
-            # harusnya 30% tpi jadi 50% biar keliatana ngebutnye
-            mult = 1.5
-        self.x += self.vec_x * mult
-        self.y += self.vec_y * mult
+        self.x += self.vec_x * self.speed_multiplier
+        self.y += self.vec_y * self.speed_multiplier
 
 
     def bounce(self, with_paddle:bool, paddle:Paddle = None):
         if not with_paddle: # Jika bola collide dengan wall, bukan dengan paddle
             if self.check_modifier("striketrough"):
-                # Jika bola keatas
-                if self.vec_y < 0 and self.rect.bottom < 0:
-                    self.y = 601 # Bottom of board
-                # Jika bola kebawah
-                elif self.vec_y > 0 and self.rect.top > 601:
-                    self.y = 0 - self.rect.height
+                self.y = 549 if self.vec_y < 0 else 1
+
             else:
                 self.vec_y *= -1
+                self.move()
         
         else: # Arah pantulan bola bervariasi berdasarkan jarak bola dari titik tengah paddle
             height_diff = self.rect.centery - paddle.rect.centery
@@ -68,7 +57,7 @@ class Ball(GameObject):
 
             # Membatasi sudut maksimal kemiringan lintasan bola
             if abs(slope) > tan(max_angle):
-                self.vec_x = (-1 if paddle.side else 1)*self.speed*cos(max_angle)
+                self.vec_x = (-1 if self.vec_x < 0 else 1)*self.speed*cos(max_angle)
                 self.vec_y = (-1 if self.vec_y < 0 else 1)*self.speed*sin(max_angle)
 
             # Mereset kecepatan bola jika kecepatan berubah ketika memantul
@@ -88,31 +77,29 @@ class Ball(GameObject):
         # Cek collision bola dengan paddle
         if self.rect.colliderect(left_paddle.rect):
             self.bounce(1, left_paddle)
+
         elif self.rect.colliderect(right_paddle.rect):
             self.bounce(1, right_paddle)
-        
-    # Modifiers tags (name) untuk pengecekan modfier
-    @property
-    def modifier_tags(self):
-        return list(i["name"] for i in self.modifiers)
 
-    def add_modifiers(self, modifier):
-        # If already have the modifiers, reset time
-        if modifier["name"] in self.modifier_tags:
-            self.modifiers[self.modifiers.index(modifier)]["duration"] = 15
-        # else, add the modifiers
-        else:
-            self.modifiers.append(modifier)
+    
+    # Mengatur aktifasi/deaktifasi efek PowerUp objek
+    def handle_modifiers(self):
+        current_time = pygame.time.get_ticks()//1000
 
-    def remove_modifiers(self, modifier):
-        if modifier["name"] in self.modifier_tags:
-            self.modifiers.pop(self.modifiers.index(modifier))
+        if self.check_modifier("speed_up"):
+            if current_time > self.modifiers_timer["speed_up"]["end"]:
+                self.speed_multiplier = 1
+                self.remove_modifier("speed_up")
 
-    def check_modifier(self, modifier_tag:str):
-        """Periksa jika bola memiliki modifier yang ditentukan."""
-        return modifier_tag in self.modifier_tags
+            elif self.speed_multiplier != 1.5:
+                self.speed_multiplier = 1.5
+
+        if self.check_modifier("striketrough"):
+            if current_time > self.modifiers_timer["striketrough"]["end"]:
+                self.remove_modifier("striketrough")
+
 
     def render(self, screen):
         screen.blit(self.image, (self.x - BALL_NEON, self.y - BALL_NEON))
-        pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
+        # pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
         

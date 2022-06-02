@@ -9,14 +9,14 @@ GAME_BG = (1, 0, 6)
 class Menu(ABC):
 
     click_sound = pygame.mixer.Sound("assets/sounds/click.wav")
-    click_sound.set_volume(0.5)
+    click_sound.set_volume(0.2)
 
     def __init__(self, name):
         self.name = name
 
         # Logo dijadikan atribut kelas parent
         self.logo_pbb = pygame.image.load("assets/images/logo_pbb.png")
-        self.logo_img = pygame.image.load("assets/images/Pong_Logo.png")
+        self.logo_img = pygame.image.load("assets/images/pong_logo.png")
         
 
     @abstractmethod
@@ -118,7 +118,7 @@ class Play(Menu):
         score_img.set_alpha(255)
         screen.blit(score_img, (494, 422))
 
-        score_font = pygame.font.Font("assets/font/Montserrat-Regular.ttf", 32)
+        score_font = pygame.font.Font("assets/font/montserrat_regular.ttf", 32)
         score_text = score_font.render(str(self.max_score), True, (255, 255, 255), None)
         screen.blit(score_text, (660, 430))
         
@@ -131,17 +131,17 @@ def change_menu(menu:dict, crnt_page:str, screen):
             Menu.click_sound.play()
             return "play_menu"
 
-        elif menu["main_menu"].about_btn.check(pygame.mouse.get_pos()):
+        if menu["main_menu"].about_btn.check(pygame.mouse.get_pos()):
             menu["about_menu"].render(screen)
             Menu.click_sound.play()
             return "about_menu"
 
-        elif menu["main_menu"].info_btn.check(pygame.mouse.get_pos()):
+        if menu["main_menu"].info_btn.check(pygame.mouse.get_pos()):
             menu["info_menu"].render(screen)
             Menu.click_sound.play()
             return "info_menu"
 
-        elif menu["main_menu"].exit_btn.check(pygame.mouse.get_pos()):
+        if menu["main_menu"].exit_btn.check(pygame.mouse.get_pos()):
             Menu.click_sound.play()
             return "<exit>"
 
