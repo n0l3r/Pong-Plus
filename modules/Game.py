@@ -1,3 +1,4 @@
+from matplotlib.pyplot import pause
 import pygame, sys
 import random
 from modules import Menu
@@ -99,6 +100,11 @@ class Game:
         player_left = self.game_dict["player_left"]
         player_right = self.game_dict["player_right"]
 
+        # Button Pause
+        pause_img = pygame.image.load("assets/button/continue_btn.png")
+        pause_btn = Button(pause_img, (1100, 3))
+        
+
         active_item_list = []
         can_spawn_item = False
 
@@ -121,6 +127,12 @@ class Game:
                 if event.type == pygame.QUIT:
                     return "<exit>"
 
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    # Button clicks
+                    if pause_btn.check(pygame.mouse.get_pos()):
+                        self.__pause_cycle()
+
+
                 paddle_left.control(event)
                 paddle_right.control(event)
 
@@ -134,6 +146,9 @@ class Game:
             paddle_left.move(0, 601)
             paddle_right.move(0, 601)
             ball.move()
+
+            # Render Button Pause
+            pause_btn.render(self.screen)
 
             # Render objek game
             paddle_left.render(game_screen)
@@ -185,13 +200,36 @@ class Game:
 
     # Pause loop
     def __pause_cycle(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+        pause_look_img = pygame.image.load("assets/game_board/pause_look.png")
+        continue_img = pygame.image.load("assets/button/continue_btn.png")
+        quit_img = pygame.image.load("assets/button/quit_btn.png")
 
-        pygame.display.update()
-        self.clock.tick(self.FPS)
+        continue_btn = Button(continue_img, (511, 357))
+        quit_btn = Button(quit_img, (681, 357))
+
+        self.screen.blit(pause_look_img, (441, 217))
+
+        pause = True
+
+        while pause:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    if continue_btn.check(pygame.mouse.get_pos()):
+                        pause = False
+                        break
+
+                    if quit_btn.check(pygame.mouse.get_pos()):
+                        pygame.quit()
+                        sys.exit()
+
+            continue_btn.render(self.screen)
+            quit_btn.render(self.screen)
+            pygame.display.update()
+            self.clock.tick(self.FPS)
 
 
     # Menu Cycle
