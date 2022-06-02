@@ -38,7 +38,7 @@ class Board:
         self.img_height = 630
         self.x = 80 - BOARD_NEON
         self.y = 67 - BOARD_NEON
-        self.image = pygame.image.load("assets/game_board/Board-Stars.png")
+        self.image = pygame.image.load("assets/game_board/board_stars.png")
         self.image = pygame.transform.scale(self.image, [self.img_width + 2*BOARD_NEON, self.img_height + 2*BOARD_NEON])
         
         # Size board : 1091 x 601
@@ -68,7 +68,7 @@ class Scores:
         self.width = (board.width*40) / 549
         self.height = (board.height*55)/608
         self.__set_pos(win_width,win_height)
-        self.image = pygame.image.load("assets/game_board/Score-Box.png")
+        self.image = pygame.image.load("assets/game_board/score_box.png")
         # self.image = pygame.transform.scale(self.image, [self.width, self.height])
         self.__value = score_val
 
@@ -85,7 +85,7 @@ class Scores:
 
     def render(self, screen):
         screen.blit(self.image, [self.x, self.y])
-        score_font = pygame.font.Font("assets/font/Montserrat-Regular.ttf", 32)
+        score_font = pygame.font.Font("assets/font/montserrat_regular.ttf", 32)
         score_text = score_font.render(self.get_value(), True, (255, 255, 255), None)
         screen.blit(score_text, (
             self.x + (self.width - score_text.get_width())/2,
@@ -111,7 +111,7 @@ class Timer:
 
 
     def render(self, screen):
-        timer_font = pygame.font.Font("assets/font/Montserrat-Regular.ttf", 36)
+        timer_font = pygame.font.Font("assets/font/montserrat_regular.ttf", 36)
         timer_text = timer_font.render(self.get_time(), True, (255, 255, 255), None)
         screen.blit(timer_text, (
             self.cor_board.image.get_rect().centerx + self.cor_board.x - (timer_text.get_width()/2),
