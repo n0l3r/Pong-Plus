@@ -127,18 +127,18 @@ def change_menu(menu:dict, crnt_page:str, screen):
     # Main Menu Page
     if crnt_page == "main_menu":
         if menu["main_menu"].play_btn.check(pygame.mouse.get_pos()):
-            menu["play_menu"].render(screen)
             Menu.click_sound.play()
+            menu["play_menu"].render(screen)
             return "play_menu"
 
         if menu["main_menu"].about_btn.check(pygame.mouse.get_pos()):
-            menu["about_menu"].render(screen)
             Menu.click_sound.play()
+            menu["about_menu"].render(screen)
             return "about_menu"
 
         if menu["main_menu"].info_btn.check(pygame.mouse.get_pos()):
-            menu["info_menu"].render(screen)
             Menu.click_sound.play()
+            menu["info_menu"].render(screen)
             return "info_menu"
 
         if menu["main_menu"].exit_btn.check(pygame.mouse.get_pos()):
@@ -148,43 +148,46 @@ def change_menu(menu:dict, crnt_page:str, screen):
     # About Menu
     elif crnt_page == "about_menu":
         if menu["about_menu"].back_btn.check(pygame.mouse.get_pos()):
-            menu["main_menu"].render(screen)
             Menu.click_sound.play()
+            menu["main_menu"].render(screen)
             return "main_menu"
 
     # Info Menu
     elif crnt_page == "info_menu":
         if menu["info_menu"].back_btn.check(pygame.mouse.get_pos()):
-            menu["main_menu"].render(screen)
             Menu.click_sound.play()
+            menu["main_menu"].render(screen)
             return "main_menu"
             
     # Play Menu
     elif crnt_page == "play_menu":
         if menu["play_menu"].back_btn.check(pygame.mouse.get_pos()):
-            menu["main_menu"].render(screen)
             Menu.click_sound.play()
+            menu["main_menu"].render(screen)
             return "main_menu"
         
         if menu["play_menu"].increase_btn.check(pygame.mouse.get_pos()):
+            Menu.click_sound.play()
             menu["play_menu"].max_score += 1
             menu["play_menu"].render(screen)
-            Menu.click_sound.play()
                     
         if menu["play_menu"].decrease_btn.check(pygame.mouse.get_pos()) and menu["play_menu"].max_score > 1:
+            Menu.click_sound.play()
             menu["play_menu"].max_score -= 1
             menu["play_menu"].render(screen)
-            Menu.click_sound.play()
 
         if menu["play_menu"].easy_btn.check(pygame.mouse.get_pos()):
+            Menu.click_sound.play()
             menu["play_menu"].difficulty = 0
             return "<in-game>"
 
         if menu["play_menu"].medium_btn.check(pygame.mouse.get_pos()):
+            Menu.click_sound.play()
             menu["play_menu"].difficulty = 1
             return "<in-game>"
 
         if menu["play_menu"].hard_btn.check(pygame.mouse.get_pos()):
+            Menu.click_sound.play()
             menu["play_menu"].difficulty = 2
             return "<in-game>"
 
