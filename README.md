@@ -24,6 +24,8 @@ Pong Plus is a pong game created by Perguruan Bunglon Beracun.
 
 [Running the Game with Python](#running-the-game-with-python)
 
+[UML Diagram](#uml-diagram)
+
 [Screenshots](#screenshots)
 
 ## Members of the Team
@@ -94,6 +96,10 @@ alternative command:
 ```
 python main.py
 ```
+
+
+## UML Diagram
+<img src="UML/UML_Diagram.drawio.png" />
 
 ## Screenshots
 
