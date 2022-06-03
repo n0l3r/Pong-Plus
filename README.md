@@ -1,5 +1,5 @@
 <div align="center">
-<img src="assets/images/Pong_Logo.png" />
+<img src="assets/images/pong_logo.png" />
 <h1> Pong Plus by Perguruan Bunglon Beracun </h1>
 
 Pong Plus is a pong game created by Perguruan Bunglon Beracun.
@@ -7,7 +7,6 @@ Pong Plus is a pong game created by Perguruan Bunglon Beracun.
 
 [![Library](https://img.shields.io/badge/pygame-orange)](#)
 [![Docker](https://img.shields.io/badge/docker-blue)](#)
-[![GitHub Issues](https://img.shields.io/github/issues/n0l3r/Pong-Plus?style=flat&label=Issues&maxAge=2592000)](https://github.com/n0l3r/Pong-Plus/issues)
 [![Github Commit](https://img.shields.io/github/commit-activity/m/n0l3r/Pong-Plus)](#)
 [![Github Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg)](#)
 </div>
