@@ -108,5 +108,5 @@ class Ball(GameObject):
 
         screen.blit(ball_img, img_rect)
         # screen.blit(ball_img, ((self.x - BALL_NEON), self.y - BALL_NEON))
-        pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
+        # pygame.draw.rect(screen, (255,0,0), self.rect, 1) # for debugging
         
