@@ -98,11 +98,7 @@ class Game:
         paddle_left = self.game_dict["paddle_left"]
         paddle_right = self.game_dict["paddle_right"]
         player_left = self.game_dict["player_left"]
-        player_right = self.game_dict["player_right"]
-
-        # Button Pause
-        # pause_img = pygame.image.load("assets/button/continue_btn.png")
-        # pause_btn = Button(pause_img, (1100, 3))     
+        player_right = self.game_dict["player_right"]   
 
         active_item_list = []
         can_spawn_item = False
@@ -145,9 +141,6 @@ class Game:
             paddle_left.move(0, 601)
             paddle_right.move(0, 601)
             ball.move()
-
-            # Render Button Pause
-            # pause_btn.render(self.screen)
 
             # Render objek game
             paddle_left.render(game_screen)
@@ -194,9 +187,9 @@ class Game:
             self.clock.tick(self.FPS)
 
             # Sementara exit setelah menang (Nanti diubah ketika halaman pemenang sudah dibuat)
-            if player_left.score >= self.max_score or player_right.score >= self.max_score:
+            if player_left.score >= self.max_score or player_right.score >= self.max_score or board.timer.get_time() == "00:00":
                 self.game_dict["game_music"].stop()
-                self.game_dict["winner_music"].play(-1)
+                self.game_dict["winner_music"].play()
                 return "<winner>"
 
 
