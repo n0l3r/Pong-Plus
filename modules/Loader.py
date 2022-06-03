@@ -23,5 +23,6 @@ class Loader:
             "ball" : Ball(ball_img, 545, 300, ball_speed, int(random.choice([0, 180]))),
             "player_left" : Player(0),
             "player_right" : Player(1),
-            "game_music": pygame.mixer.Sound("assets/sounds/play_board.wav")
+            "game_music": pygame.mixer.Sound("assets/sounds/play_board.wav"),
+            "winner_music": pygame.mixer.Sound("assets/sounds/winner.wav")
         }
