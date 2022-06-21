@@ -7,7 +7,8 @@ from modules.Ball import Ball
 from modules.Player import Player
 
 class Loader:
-    def load_menu(self):
+    @staticmethod
+    def load_menu():
         return {
             "main_menu": Menu.Main(),
             "about_menu": Menu.About("assets/images/about_text.png"),
@@ -15,7 +16,8 @@ class Loader:
             "play_menu": Menu.Play()
         }
 
-    def load_game(self, ball_speed,  ball_img = pygame.image.load("assets/game_board/ball_react.png")):
+    @staticmethod
+    def load_game(ball_speed,  ball_img = pygame.image.load("assets/game_board/ball_react.png")):
         return {
             "board" : Board(),
             "paddle_left" : Paddle(0, 7),

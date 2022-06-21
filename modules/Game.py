@@ -62,7 +62,8 @@ class Game:
 
 
     # Mengurus rendering PowerUp dan check collision dengan bola
-    def item_handler(self, active_items_list, screen, ball, paddle_right, paddle_left):
+    @staticmethod
+    def item_handler(active_items_list, screen, ball, paddle_right, paddle_left):
         new_list = []
 
         for item in active_items_list:
